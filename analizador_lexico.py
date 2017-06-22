@@ -45,6 +45,7 @@ _Bool = Type('bool', Tag.TYPE)
 
 class Lex():
     line = 1
+    end = False
     peek = ' '
     words = {}
 
@@ -80,10 +81,10 @@ class Lex():
             try:
                 self.peek = next(self.itstring)
             except(StopIteration):
-                self.peek = ' '
+                self.end = True
+                self.peek = ''
 
     def scan(self):
-        self.readch()
         while self.peek == ' ' or self.peek == '\t' or self.peek == '\n':
             if self.peek == '\n':
                 self.line += 1
@@ -129,16 +130,19 @@ class Lex():
             self.words[buff] = w
             return w
 
-        if self.peek == '$':
-            return None
-
         tok = Token(self.peek)
         self.peek = ' '
         return tok
 
-string = 'si'
+string = '''si 2 == 4
+culo = 2'''
 if __name__ == '__main__':
+    l=[]
     lex = Lex(string)
-    tok = lex.scan()
-    print(tok.lexeme,tok.tag)
+    while not lex.end:
+        tok = lex.scan()
+        l.append(tok.tag)
+    print(l)
+    print(lex.line)
+
 
