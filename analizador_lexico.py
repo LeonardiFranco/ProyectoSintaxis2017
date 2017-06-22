@@ -136,7 +136,7 @@ class Lex():
         self.peek = ' '
         return tok
 
-string = "si"
+string = 'si'
 if __name__ == '__main__':
     lex = Lex(string)
     tok = lex.scan()
