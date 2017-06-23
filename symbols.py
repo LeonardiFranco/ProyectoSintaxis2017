@@ -1,3 +1,13 @@
+from analizador_lexico import *
+
+class Type(Word):
+    def __init__(self, s, t, **kwds):
+        super().__init__(s,t, **kwds)
+
+_Num = Type('num', Tag.TYPE)
+_Char = Type('char', Tag.TYPE)
+_Bool = Type('bool', Tag.TYPE)
+
 class Env():
     def __init__(self, n):
         self.table = {}

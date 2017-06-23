@@ -1,18 +1,20 @@
 class Tag():
     EQ, ID, WHILE, LT, GT, AND, OR, NOT, LE, GE, DO, IF, THEN, END, PERIOD, ELSE, ASSIGN, NUM, TRUE, FALSE, WRITE, READ, NE, TYPE = 'EQ','ID','WHILE','LT','GT','AND','OR','NOT','LE','GE','DO','IF','THEN','END','PERIOD','ELSE','ASSIGN','NUM','TRUE','FALSE','WRITE','READ','NE','TYPE'
-#257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280
-class Token():
+                                                                                                                                    #257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280
+
+class Token:
     '''Single tokens not defined in the grammar'''
-    def __init__(self,t):
+    def __init__(self,t, **kwds):
         self.tag = t
+        super().__init__(**kwds)
 
     def __str__(self):
         return str(self.tag)
 
 class Num(Token):
     '''Constant'''
-    def __init__(self,v):
-        super().__init__(Tag.NUM)
+    def __init__(self,v,**kwds):
+        super().__init__(Tag.NUM,**kwds)
         self.value = v
 
     def __str__(self):
@@ -20,31 +22,25 @@ class Num(Token):
 
 class Word(Token):
     '''Any kind of keyword, identifier or operator'''
-    def __init__(self,s,t):
-        super().__init__(t)
+    def __init__(self,s,t,**kwds):
+        super().__init__(t,**kwds)
         self.lexeme = s
 
     def __str__(self):
         return self.lexeme
 
-_and = Word('&&', Tag.AND)
-_or = Word('||', Tag.OR)
-_ne = Word('!=', Tag.NOT)
-_eq = Word('==', Tag.EQ)
-_le = Word('<=', Tag.LE)
-_ge = Word('>=', Tag.GE)
-_True = Word('true', Tag.TRUE)
-_False = Word('false', Tag.FALSE)
+#Define environment constants
+_and = Word(s='&&', t=Tag.AND)
+_or = Word(s='||', t=Tag.OR)
+_ne = Word(s='!=', t=Tag.NOT)
+_eq = Word(s='==', t=Tag.EQ)
+_le = Word(s='<=', t=Tag.LE)
+_ge = Word(s='>=', t=Tag.GE)
+_True = Word(s='true', t=Tag.TRUE)
+_False = Word(s='false', t=Tag.FALSE)
 
-class Type(Word):
-    # width = 0
-    def __init__(self, s, t):
-        super().__init__(s,t)
 
-_Num = Type('num', Tag.TYPE)
-_Char = Type('char', Tag.TYPE)
-_Bool = Type('bool', Tag.TYPE)
-
+#Main class
 class Lex():
     line = 1
     end = False
@@ -56,15 +52,12 @@ class Lex():
 
     def __init__(self,string):
         '''Reserves keywords and sets up variables'''
-        self.reserve(Word('si', Tag.IF))
-        self.reserve(Word('sino', Tag.ELSE))
-        self.reserve(Word('mientras', Tag.WHILE))
-        self.reserve(Word('hacer', Tag.DO))
+        self.reserve(Word(s='si', t=Tag.IF))
+        self.reserve(Word(s='sino', t=Tag.ELSE))
+        self.reserve(Word(s='mientras', t=Tag.WHILE))
+        self.reserve(Word(s='hacer', t=Tag.DO))
         self.reserve(_True)
         self.reserve(_False)
-        # self.reserve(_Num)
-        # self.reserve(_Bool)
-        # self.reserve(_Char)
         self.string=string
         self.itstring=self.gen()
 
@@ -99,30 +92,30 @@ class Lex():
         if self.peek == '&':
             return _and if self.readch('&') else Token('&')
         elif self.peek == '|':
-            return _or if self.readch('|') else Token('|')
+            return _or if self.readch('|') else Token(t='|')
         elif self.peek == '=':
-            return _eq if self.readch('=') else Token('=')
+            return _eq if self.readch('=') else Token(t='=')
         elif self.peek == '!':
-            return _ne if self.readch('=') else Token('!')
+            return _ne if self.readch('=') else Token(t='!')
         elif self.peek == '<':
-            return _le if self.readch('=') else Token('<')
+            return _le if self.readch('=') else Token(t='<')
         elif self.peek == '>':
-            return _ge if self.readch('=') else Token('>')
+            return _ge if self.readch('=') else Token(t='>')
         #Recognizes a number
         if self.peek.isdigit():
-            v = 0
+            value = 0
             while self.peek.isdigit():
-                v = 10*v + int(self.peek)
+                value = 10*value + int(self.peek)
                 self.readch()
             if self.peek != '.':
-                return Num(v)
+                return Num(v=value)
             d = 10.0
             self.readch()
             while self.peek.isdigit():
-                v = v + int(self.peek) / d
+                value = value + int(self.peek) / d
                 d *= 10.0;
                 self.readch()
-            return Num(v)
+            return Num(v=value)
         #Recognizes an identifier or keyword
         if self.peek.isalpha() or self.peek == '_':
             buff = ''
@@ -132,15 +125,15 @@ class Lex():
             w = self.words.get(buff)
             if w:
                 return w
-            w = Word(buff, Tag.ID)
+            w = Word(s=buff, t=Tag.ID)
             self.words[buff] = w
             return w
         #Recognizes the period by itself
         if self.peek == ".":
             self.readch()
-            return Word('.',Tag.PERIOD)
+            return Word(s='.',t=Tag.PERIOD)
 
-        tok = Token(self.peek)
+        tok = Token(t=self.peek)
         self.peek = ' '
         return tok
 
@@ -154,5 +147,6 @@ if __name__ == '__main__':
         l.append(tok.tag)
     print(l)
     print(lex.line)
+    print(lex.words['si'])
 
 
