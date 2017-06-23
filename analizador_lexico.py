@@ -17,7 +17,6 @@ class Num(Token):
         return str(self.value)
 
 class Word(Token):
-    lexeme = ''
     def __init__(self,s,t):
         super().__init__(t)
         self.lexeme = s
@@ -130,12 +129,16 @@ class Lex():
             self.words[buff] = w
             return w
 
+        if self.peek == ".":
+            self.readch()
+            return Word('.',Tag.PERIOD)
+
         tok = Token(self.peek)
         self.peek = ' '
         return tok
 
 string = '''si 2 == 4
-culo = 2'''
+culo = a.'''
 if __name__ == '__main__':
     l=[]
     lex = Lex(string)
