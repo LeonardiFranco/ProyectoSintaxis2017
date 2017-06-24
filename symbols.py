@@ -1,10 +1,10 @@
-from analizador_lexico import *
+from lex import *
 
 class Type(Word):
     def __init__(self, s, t, **kwds):
         super().__init__(s,t, **kwds)
 
-_Num = Type('num', Tag.TYPE)
+_Num = Type('num', Tag.TYPE)k
 _Char = Type('char', Tag.TYPE)
 _Bool = Type('bool', Tag.TYPE)
 

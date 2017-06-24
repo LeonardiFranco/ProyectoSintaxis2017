@@ -1,6 +1,6 @@
 class Tag():
-    EQ, ID, WHILE, LT, GT, AND, OR, NOT, LE, GE, DO, IF, THEN, END, PERIOD, ELSE, ASSIGN, NUM, TRUE, FALSE, WRITE, READ, NE, TYPE = 'EQ','ID','WHILE','LT','GT','AND','OR','NOT','LE','GE','DO','IF','THEN','END','PERIOD','ELSE','ASSIGN','NUM','TRUE','FALSE','WRITE','READ','NE','TYPE'
-                                                                                                                                    #257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280
+    EQ, ID, WHILE, LT, GT, AND, OR, LE, GE, DO, IF, THEN, END, ELSE, NUM, TRUE, FALSE, WRITE, READ, NE, TYPE = 'EQ','ID','WHILE','LT','GT','AND','OR','LE','GE','DO','IF','THEN','END','ELSE','NUM','TRUE','FALSE','WRITE','READ','NE','TYPE'
+                                                                                                                #257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280
 
 class Token:
     '''Single tokens not defined in the grammar'''
@@ -30,14 +30,14 @@ class Word(Token):
         return self.lexeme
 
 #Define environment constants
-_and = Word(s='&&', t=Tag.AND)
-_or = Word(s='||', t=Tag.OR)
-_ne = Word(s='!=', t=Tag.NOT)
-_eq = Word(s='==', t=Tag.EQ)
-_le = Word(s='<=', t=Tag.LE)
-_ge = Word(s='>=', t=Tag.GE)
-_True = Word(s='true', t=Tag.TRUE)
-_False = Word(s='false', t=Tag.FALSE)
+AND = Word(s='&&', t=Tag.AND)
+OR = Word(s='||', t=Tag.OR)
+NE = Word(s='!=', t=Tag.NE)
+EQ = Word(s='==', t=Tag.EQ)
+LE = Word(s='<=', t=Tag.LE)
+GE = Word(s='>=', t=Tag.GE)
+TRUE = Word(s='true', t=Tag.TRUE)
+FALSE = Word(s='false', t=Tag.FALSE)
 
 
 #Main class
@@ -50,14 +50,18 @@ class Lex():
     def reserve(self,w):
         self.words[w.lexeme] = w
 
-    def __init__(self,string):
+    def __init__(self,string=''):
         '''Reserves keywords and sets up variables'''
         self.reserve(Word(s='si', t=Tag.IF))
+        self.reserve(Word(s='entonces',t=Tag.THEN))
         self.reserve(Word(s='sino', t=Tag.ELSE))
         self.reserve(Word(s='mientras', t=Tag.WHILE))
         self.reserve(Word(s='hacer', t=Tag.DO))
-        self.reserve(_True)
-        self.reserve(_False)
+        self.reserve(Word(s='fin',t=Tag.END))
+        self.reserve(Word(s='leer',t=Tag.READ))
+        self.reserve(Word(s='escribir',t=Tag.WRITE))
+        self.reserve(TRUE)
+        self.reserve(FALSE)
         self.string=string
         self.itstring=self.gen()
 
@@ -90,17 +94,17 @@ class Lex():
             self.readch()
         #Recognizes relational or logical operators
         if self.peek == '&':
-            return _and if self.readch('&') else Token('&')
+            return AND if self.readch('&') else Token('&')
         elif self.peek == '|':
-            return _or if self.readch('|') else Token(t='|')
+            return OR if self.readch('|') else Token(t='|')
         elif self.peek == '=':
-            return _eq if self.readch('=') else Token(t='=')
+            return EQ if self.readch('=') else Token(t='=')
         elif self.peek == '!':
-            return _ne if self.readch('=') else Token(t='!')
+            return NE if self.readch('=') else Token(t='!')
         elif self.peek == '<':
-            return _le if self.readch('=') else Token(t='<')
+            return LE if self.readch('=') else Token(t='<')
         elif self.peek == '>':
-            return _ge if self.readch('=') else Token(t='>')
+            return GE if self.readch('=') else Token(t='>')
         #Recognizes a number
         if self.peek.isdigit():
             value = 0
@@ -128,25 +132,23 @@ class Lex():
             w = Word(s=buff, t=Tag.ID)
             self.words[buff] = w
             return w
-        #Recognizes the period by itself
-        if self.peek == ".":
-            self.readch()
-            return Word(s='.',t=Tag.PERIOD)
 
+        #Recognizes other characters
         tok = Token(t=self.peek)
         self.peek = ' '
         return tok
 
-string = '''si 2 == 4
-culo = a.'''
+string = '''si (2 == 4)  entonces
+culo = a.
+fin.'''
 if __name__ == '__main__':
     l=[]
-    lex = Lex(string)
+    lex = Lex(string=string)
     while not lex.end:
         tok = lex.scan()
         l.append(tok.tag)
     print(l)
     print(lex.line)
-    print(lex.words['si'])
+    print(lex.words['entonces'])
 
 
