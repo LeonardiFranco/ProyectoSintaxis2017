@@ -1,10 +1,5 @@
-.. Proyecto Final Sintaxis 2017 documentation master file, created by
-   sphinx-quickstart on Wed Jul 19 01:03:47 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to Proyecto Final Sintaxis 2017's documentation!
-========================================================
+Documentacion Proyecto Final Sintaxis 2017
+==========================================
 
 .. toctree::
    :maxdepth: 2
