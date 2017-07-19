@@ -1,4 +1,4 @@
-'''Analizador Lexico'''
+'''Toma como entrada el codigo fuente del programa y devuelve un componente lexico a la vez.'''
 
 
 from collections import namedtuple

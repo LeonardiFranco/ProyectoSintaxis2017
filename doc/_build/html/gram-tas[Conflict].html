@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Índice &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
+  <title>Gramática modificada y TAS. &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
   
 
   
@@ -34,7 +33,7 @@
 
   
         <link rel="index" title="Índice"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
     <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 0.1" href="index.html"/> 
 
@@ -92,7 +91,6 @@
               <p class="caption"><span class="caption-text">Tabla de contenidos:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduccion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="comp-lex.html">Definicion de Componentes Léxicos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática modificada y TAS.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiler.html">Interprete</a></li>
 </ul>
@@ -139,12 +137,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li></li>
+      <li>Gramática modificada y TAS.</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/gram-tas[Conflict].rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -156,57 +156,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Índice</h1>
-
-<div class="genindex-jumpbox">
- <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#T"><strong>T</strong></a>
- 
+  <div class="section" id="gramatica-modificada-y-tas">
+<h1>Gramática modificada y TAS.<a class="headerlink" href="#gramatica-modificada-y-tas" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="gramatica">
+<h2>Gramática<a class="headerlink" href="#gramatica" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="line-block">
+<div class="line"><strong>Programa</strong> → <strong>Seq</strong> Fin</div>
+<div class="line"><strong>Seq</strong> → <strong>Sentencia</strong> <strong>Seq</strong>| ε</div>
+<div class="line"><strong>Sentencia</strong> → <strong>Asignación</strong> | <strong>Lectura</strong> | <strong>Escritura</strong> | <strong>Condicional</strong> | <strong>Ciclo</strong></div>
+<div class="line"><strong>Asignación</strong> → id = <strong>ExpArit</strong></div>
+<div class="line"><strong>Lectura</strong> → LEER ( “cadena” ,identificador)</div>
+<div class="line"><strong>Escritura</strong> → ESCRIBIR ( “cadena” ,ExpArit)</div>
+<div class="line"><strong>Condicional</strong> → si <strong>Bool</strong> entonces <strong>Bloque</strong> <strong>Else</strong></div>
+<div class="line"><strong>Else</strong> → sino <strong>Bloque</strong> | ε</div>
+<div class="line"><strong>Ciclo</strong> → mientras <strong>Bool</strong> hacer <strong>Bloque</strong></div>
+<div class="line"><strong>Bool</strong> → <strong>Condición</strong> <strong>SBool</strong></div>
+<div class="line"><strong>SBool</strong> →  <strong>OpLog</strong> <strong>Condición</strong> <strong>SBool</strong> | ε</div>
+<div class="line"><strong>Condición</strong> → ( <strong>ExpArit</strong> <strong>OpRel</strong> <strong>ExpArit</strong> ) | not <strong>Condición</strong></div>
+<div class="line"><strong>Bloque</strong> → { <strong>Seq</strong> }</div>
+<div class="line"><strong>ExpArit</strong> → <strong>Term</strong> <strong>SExpArit</strong></div>
+<div class="line"><strong>SExpArit</strong> → <strong>Op1</strong> <strong>Term</strong> <strong>SExpArit</strong>| ε</div>
+<div class="line"><strong>Term</strong> → <strong>Neg</strong> <strong>STerm</strong></div>
+<div class="line"><strong>STerm</strong> → <strong>Op2</strong> <strong>Neg</strong> <strong>STerm</strong> | ε</div>
+<div class="line"><strong>Neg</strong> → -<strong>Pot</strong> | <strong>Pot</strong></div>
+<div class="line"><strong>Pot</strong> → <strong>Factor</strong> <strong>SPot</strong></div>
+<div class="line"><strong>SPot</strong> → <strong>Op3</strong> <strong>Factor</strong> <strong>SPot</strong> | ε</div>
+<div class="line"><strong>Factor</strong> → id | const | ( <strong>ExpArit</strong> )</div>
+<div class="line"><strong>Op1</strong> → + | -</div>
+<div class="line"><strong>Op2</strong> → * | /</div>
+<div class="line"><strong>Op3</strong> → ** | //</div>
+<div class="line"><strong>OpLog</strong> → or | and</div>
+<div class="line"><strong>OpRel</strong> → &lt; | &gt; | &lt;= | &gt;= | =</div>
+<div class="line"><br /></div>
 </div>
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-lex">lex (módulo)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser_proj.move">move() (en el módulo parser_proj)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-parser_proj">parser_proj (módulo)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#lex.readch">readch() (en el módulo lex)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#lex.token">token (en el módulo lex)</a>
-</li>
-  </ul></td>
-</tr></table>
-
+</div>
+<div class="section" id="tabla-de-analisis-sintactico">
+<h2>Tabla de Análisis Sintáctico<a class="headerlink" href="#tabla-de-analisis-sintactico" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference external" href="TAS.html">TAS</a></p>
+</div>
+</div>
 
 
            </div>

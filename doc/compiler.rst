@@ -1,14 +1,15 @@
-Compilador
+Interprete
 ==========
 
 
-Analizador Lexico
+Analizador Léxico
 -----------------
 
 .. automodule:: lex
     :members:
+    :member-order: bysource
 
-Analizador Sintactico
+Analizador Sintáctico
 ---------------------
 
 .. automodule:: parser_proj

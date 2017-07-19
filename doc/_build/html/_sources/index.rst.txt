@@ -1,14 +1,27 @@
-Documentacion Proyecto Final Sintaxis 2017
-==========================================
+Proyecto Final Sintaxis 2017
+============================
+
+.. image:: images/image.png
+
+Integrantes
+===========
+
+* Franco Leonardi.
+* Fernando Pereyra Rausch.
+* Francisco Tricerri.
+* Juan Manuel Santa Cruz.
+* Juan Vera.
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: Tabla de contenidos:
 
+   intro
+   comp-lex
+   gram-tas
    compiler
 
-
-Indices and tables
+Indices
 ==================
 
 * :ref:`genindex`

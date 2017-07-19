@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Índice &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
+  <title>Definicion de Componentes Léxicos &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
   
 
   
@@ -34,7 +33,7 @@
 
   
         <link rel="index" title="Índice"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
     <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 0.1" href="index.html"/> 
 
@@ -139,12 +138,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li></li>
+      <li>Definicion de Componentes Léxicos</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/comp-lex[Conflict].rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -156,57 +157,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Índice</h1>
-
-<div class="genindex-jumpbox">
- <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#T"><strong>T</strong></a>
- 
+  <div class="section" id="definicion-de-componentes-lexicos">
+<h1>Definicion de Componentes Léxicos<a class="headerlink" href="#definicion-de-componentes-lexicos" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="expresiones-regulares">
+<h2>Expresiones Regulares<a class="headerlink" href="#expresiones-regulares" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>num = [0..9], let = [a-Z]</p>
+<dl class="docutils">
+<dt>Constante numerica:</dt>
+<dd>num num* ( | . num num*)( | E ( | - ) num num*)</dd>
+<dt>Identificador:</dt>
+<dd>(_|let)(_ | let | num)*</dd>
+</dl>
 </div>
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-lex">lex (módulo)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser_proj.move">move() (en el módulo parser_proj)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-parser_proj">parser_proj (módulo)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#lex.readch">readch() (en el módulo lex)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#lex.token">token (en el módulo lex)</a>
-</li>
-  </ul></td>
-</tr></table>
-
+</div>
 
 
            </div>
