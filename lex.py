@@ -1,6 +1,15 @@
+'''Analizador Lexico'''
+
+
 from collections import namedtuple
 
-
+line = 1
+end = False
+peek = ' '
+words={}
+string = '''a==1
+fin'''
+itstring = iter(string)
 token = namedtuple('Token', ['tag', 'atrib'])
 
 def id(tag, lexeme):
@@ -13,8 +22,10 @@ def reserve(w):
     global words
     words[w.atrib] = w
 
-
 def readch(c=None):
+    '''Obtiene el proximo caracter del programa de entrada,
+    y si tiene un parametro de entrada compara si el proximo caracter es igual al del parametro
+    y devuelve el resultado de la comparacion.'''
     global peek, end, itstring
     if c:
         readch()
@@ -29,59 +40,42 @@ def readch(c=None):
             end = True
             peek = ''
 
-AND = id(tag='OPLOG',lexeme='and')
-OR = id(tag='OPLOG', lexeme='or')
-NOT = id(tag='OPLOG', lexeme='not')
-NE = id(tag='OPREL', lexeme='<>')
-EQ = id(tag='OPREL', lexeme='==')
-LE = id(tag='OPREL', lexeme='<=')
-GE = id(tag='OPREL', lexeme='>=')
-POT = id(tag='OP3', lexeme='**')
-RAIZ = id(tag='OP3', lexeme='//')
-IF = id(tag='IF', lexeme='si')
-THEN = id(tag='THEN', lexeme='entonces')
-ELSE = id(tag='ELSE', lexeme='sino')
-WHILE = id(tag='WHILE', lexeme='mientras')
-DO = id(tag='DO', lexeme='hacer')
-END = id(tag='END', lexeme='fin')
-READ = id(tag='READ', lexeme='leer')
-WRITE = id(tag='WRITE', lexeme='escribir')
-LPAREN = id(tag='(', lexeme='(')
-RPAREN = id(tag=')', lexeme=')')
+#Environment constants
+env = {'AND' : id(tag='OPLOG',lexeme='and'),
+'OR' : id(tag='OPLOG', lexeme='or'),
+'NOT' : id(tag='OPLOG', lexeme='not'),
+'NE' : id(tag='OPREL', lexeme='<>'),
+'EQ' : id(tag='OPREL', lexeme='=='),
+'LE' : id(tag='OPREL', lexeme='<='),
+'GE' : id(tag='OPREL', lexeme='>='),
+'POT' : id(tag='OP3', lexeme='**'),
+'RAIZ' : id(tag='OP3', lexeme='//'),
+'IF' : id(tag='IF', lexeme='si'),
+'THEN' : id(tag='THEN', lexeme='entonces'),
+'ELSE' : id(tag='ELSE', lexeme='sino'),
+'WHILE' : id(tag='WHILE', lexeme='mientras'),
+'DO' : id(tag='DO', lexeme='hacer'),
+'END' : id(tag='END', lexeme='fin'),
+'READ' : id(tag='READ', lexeme='leer'),
+'WRITE' : id(tag='WRITE', lexeme='escribir'),
+'LPAREN' : id(tag='(', lexeme='('),
+'RPAREN' : id(tag=')', lexeme=')'),
+}
+
+reserve(env['IF'])
+reserve(env['ELSE'])
+reserve(env['THEN'])
+reserve(env['WHILE'])
+reserve(env['DO'])
+reserve(env['END'])
+reserve(env['READ'])
+reserve(env['WRITE'])
+reserve(env['AND'])
+reserve(env['OR'])
+reserve(env['NOT'])
 
 def scan():
-    global peek, end, words, line
-
-    #Define constants, and reserve words
-    AND = id(tag='OPLOG',lexeme='and')
-    OR = id(tag='OPLOG', lexeme='or')
-    NOT = id(tag='OPLOG', lexeme='not')
-    NE = id(tag='OPREL', lexeme='<>')
-    EQ = id(tag='OPREL', lexeme='==')
-    LE = id(tag='OPREL', lexeme='<=')
-    GE = id(tag='OPREL', lexeme='>=')
-    POT = id(tag='OP3', lexeme='**')
-    RAIZ = id(tag='OP3', lexeme='//')
-    IF = id(tag='IF', lexeme='si')
-    THEN = id(tag='THEN', lexeme='entonces')
-    ELSE = id(tag='ELSE', lexeme='sino')
-    WHILE = id(tag='WHILE', lexeme='mientras')
-    DO = id(tag='DO', lexeme='hacer')
-    END = id(tag='END', lexeme='fin')
-    READ = id(tag='READ', lexeme='leer')
-    WRITE = id(tag='WRITE', lexeme='escribir')
-    reserve(IF)
-    reserve(ELSE)
-    reserve(THEN)
-    reserve(WHILE)
-    reserve(DO)
-    reserve(END)
-    reserve(READ)
-    reserve(WRITE)
-    reserve(AND)
-    reserve(OR)
-    reserve(NOT)
-
+    global peek, end, words, line, env
 
     while peek == ' ' or peek == '\t' or peek == '\n':
         if peek == '\n':
@@ -90,17 +84,17 @@ def scan():
 
     #Recognizes relational operators
     if peek == '=':
-        return EQ if readch('=') else token(tag='=',atrib='=')
+        return env['EQ'] if readch('=') else token(tag='=',atrib='=')
     elif peek == '!':
-        return NE if readch('=') else token(tag='!',atrib='!')
+        return env['NE'] if readch('=') else token(tag='!',atrib='!')
     elif peek == '<':
-        return LE if readch('=') else token(tag='OPREL',atrib='<')
+        return env['LE'] if readch('=') else token(tag='OPREL',atrib='<')
     elif peek == '>':
-        return GE if readch('=') else token(tag='OPREL',atrib='>')
+        return env['GE'] if readch('=') else token(tag='OPREL',atrib='>')
     elif peek == '*':
-        return POT if readch('*') else token(tag='OP2', atrib='*')
+        return env['POT'] if readch('*') else token(tag='OP2', atrib='*')
     elif peek == '/':
-        return RAIZ if readch('/') else token(tag='OP2', atrib='/')
+        return env['RAIZ'] if readch('/') else token(tag='OP2', atrib='/')
 
     #Recognizes a number
     if peek.isdigit():
@@ -146,14 +140,6 @@ def scan():
     peek = ' '
     return tok
 
-
-line = 1
-end = False
-peek = ' '
-words = {}
-string = '''a=1
-fin'''
-itstring = iter(string)
 
 if __name__ == '__main__':
     l=[]
