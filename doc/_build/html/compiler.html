@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
     <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 0.1" href="index.html"/>
-        <link rel="prev" title="Introduccion" href="intro.html"/> 
+        <link rel="prev" title="Gramática modificada y TAS." href="gram-tas.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -92,6 +92,8 @@
               <p class="caption"><span class="caption-text">Tabla de contenidos:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduccion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comp-lex.html">Definicion de Componentes Léxicos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática modificada y TAS.</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Interprete</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-lex">Analizador Léxico</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-parser_proj">Analizador Sintáctico</a></li>
@@ -184,6 +186,12 @@ y devuelve el resultado de la comparacion.</p>
 <span id="analizador-sintactico"></span><h2>Analizador Sintáctico<a class="headerlink" href="#module-parser_proj" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Interactua con el analizador lexico para devolver un arbol de analisis sintactico.</p>
 <dl class="function">
+<dt id="parser_proj.error">
+<code class="descclassname">parser_proj.</code><code class="descname">error</code><span class="sig-paren">(</span><em>s=”Syntax Error”</em><span class="sig-paren">)</span><a class="headerlink" href="#parser_proj.error" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Eleva un error sintactico.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="parser_proj.move">
 <code class="descclassname">parser_proj.</code><code class="descname">move</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#parser_proj.move" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Le pide al analizador lexico el siguiente componente lexico.</p>
@@ -203,7 +211,7 @@ y devuelve el resultado de la comparacion.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="intro.html" class="btn btn-neutral" title="Introduccion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gram-tas.html" class="btn btn-neutral" title="Gramática modificada y TAS." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

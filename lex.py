@@ -7,7 +7,7 @@ line = 1
 end = False
 peek = ' '
 words={}
-string = '''a==1
+string = '''a=2-1
 fin'''
 itstring = iter(string)
 token = namedtuple('Token', ['tag', 'atrib'])
@@ -43,7 +43,7 @@ def readch(c=None):
 #Environment constants
 env = {'AND' : id(tag='OPLOG',lexeme='and'),
 'OR' : id(tag='OPLOG', lexeme='or'),
-'NOT' : id(tag='OPLOG', lexeme='not'),
+'NOT' : id(tag='OPNOT', lexeme='not'),
 'NE' : id(tag='OPREL', lexeme='<>'),
 'EQ' : id(tag='OPREL', lexeme='=='),
 'LE' : id(tag='OPREL', lexeme='<='),
@@ -135,6 +135,12 @@ def scan():
         readch()
         return id('CADENA',buff)
 
+    if peek == '+':
+        readch()
+        return token(tag='OPS',atrib='+')
+    if peek == '-':
+        readch()
+        return token(tag='OPR',atrib='-')
     #Recognizes other characters
     tok = token(tag=peek,atrib=peek)
     peek = ' '
