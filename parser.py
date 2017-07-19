@@ -5,11 +5,12 @@ import symbols
 TAS = {}
 
 def move():
+    '''Le pide al analizador lexico el siguiente lexema'''
     global look
-    look = lex_e.scan()
+    look = lex.scan()
 
 def error(s='Syntax Error'):
-    raise Exception(lex_e.line,s)
+    raise Exception(lex.line,s)
 
 def match(token):
     global look
@@ -19,19 +20,19 @@ def match(token):
         error("Syntax error")
 
 def program():
-    if (look in [lex_e.IF, lex_e.WHILE, lex_e.READ, lex_e.WRITE, lex_e.END]) or (look.tag in ['ID','}']):
+    if (look in [lex.IF, lex.WHILE, lex.READ, lex.WRITE, lex.END]) or (look.tag in ['ID','}']):
         stack.pop()
-        stack.append(lex_e.END)
+        stack.append(lex.END)
         stack.append(seq)
     else:
         error()
 
 def seq():
-    if look in [lex_e.IF, lex_e.WHILE, lex_e.READ, lex_e.WRITE] or look.tag == 'ID':
+    if look in [lex.IF, lex.WHILE, lex.READ, lex.WRITE] or look.tag == 'ID':
         stack.pop()
         stack.append(seq)
         stack.append(sentencia)
-    elif look == lex_e.END or look.tag == '}':
+    elif look == lex.END or look.tag == '}':
         stack.pop()
     else:
         error()
@@ -40,16 +41,16 @@ def sentencia():
     if look.tag == 'ID':
         stack.pop()
         stack.append(asignacion)
-    elif look == lex_e.READ:
+    elif look == lex.READ:
         stack.pop()
         stack.append(lectura)
-    elif look == lex_e.WRITE:
+    elif look == lex.WRITE:
         stack.pop()
         stack.append(escritura)
-    elif look == lex_e.IF:
+    elif look == lex.IF:
         stack.pop()
         stack.append(condicional)
-    elif look == lex_e.WHILE:
+    elif look == lex.WHILE:
         stack.pop()
         stack.append(ciclo)
     else:
@@ -59,7 +60,7 @@ def asignacion():
     if look.tag == 'ID':
         stack.pop()
         stack.append(exparit)
-        stack.append(lex_e.token('=','='))
+        stack.append(lex.token('=','='))
         stack.append(look)
     else:
         error()
@@ -72,14 +73,14 @@ def identificador():
         error()
 
 def lectura():
-    if look == lex_e.READ:
+    if look == lex.READ:
         stack.pop()
-        stack.append(lex_e.RPAREN)
+        stack.append(lex.RPAREN)
         stack.append(identificador)
-        stack.append(lex_e.token(',',','))
+        stack.append(lex.token(',',','))
         stack.append(cadena)
-        stack.append(lex_e.LPAREN)
-        stack.append(lex_e.READ)
+        stack.append(lex.LPAREN)
+        stack.append(lex.READ)
     else:
         error()
 
@@ -91,32 +92,32 @@ def cadena():
         error()
 
 def escritura():
-    if look == lex_e.WRITE:
+    if look == lex.WRITE:
         stack.pop()
-        stack.append(lex_e.RPAREN)
+        stack.append(lex.RPAREN)
         stack.append(exparit)
-        stack.append(lex_e.token(',',','))
+        stack.append(lex.token(',',','))
         stack.append(cadena)
-        stack.append(lex_e.LPAREN)
-        stack.append(lex_e.WRITE)
+        stack.append(lex.LPAREN)
+        stack.append(lex.WRITE)
     else:
         error()
 
 def condicional():
-    if look == lex_e.IF:
+    if look == lex.IF:
         stack.pop()
         stack.append(Else)
         stack.append(bloque)
-        stack.append(lex_e.THEN)
+        stack.append(lex.THEN)
         stack.append(Bool)
-        stack.append(lex_e.IF)
+        stack.append(lex.IF)
     else:
         error()
 
 def Else():
-    if look.tag in ['ID', '}'] or look in [lex_e.READ, lex_e.WRITE, lex_e.IF, lex_e.WHILE, lex_e.END]:
+    if look.tag in ['ID', '}'] or look in [lex.READ, lex.WRITE, lex.IF, lex.WHILE, lex.END]:
         stack.pop()
-    elif look == lex_e.ELSE:
+    elif look == lex.ELSE:
         stack.pop()
         stack.append(bloque)
         stack.append(look)
@@ -126,14 +127,14 @@ def Else():
 def bloque():
     if look.tag == '{':
         stack.pop()
-        stack.append(lex_e.token('}','}'))
+        stack.append(lex.token('}','}'))
         stack.append(seq)
-        stack.append(lex_e.token('{','{'))
+        stack.append(lex.token('{','{'))
     else:
         error()
 
 def Bool():
-    if look in [lex_e.LPAREN, lex_e.NOT]:
+    if look in [lex.LPAREN, lex.NOT]:
         stack.pop()
         stack.append(sBool)
         stack.append(condicion)
@@ -141,9 +142,9 @@ def Bool():
         error()
 
 def sBool():
-    if look in [lex_e.DO, lex_e.THEN]:
+    if look in [lex.DO, lex.THEN]:
         stack.pop()
-    elif look in [lex_e.AND, lex_e.OR]:
+    elif look in [lex.AND, lex.OR]:
         stack.pop()
         stack.append(sBool)
         stack.append(condicion)
@@ -154,40 +155,40 @@ def sBool():
 def oplog():
     if look.atrib == 'or':
         stack.pop()
-        stack.append(lex_e.OR)
+        stack.append(lex.OR)
     elif look.atrib == 'and':
         stack.pop()
-        stack.append(lex_e.AND)
+        stack.append(lex.AND)
     else:
         error()
 
 def condicion():
-    if look == lex_e.LPAREN:
+    if look == lex.LPAREN:
         stack.pop()
-        stack.append(lex_e.RPAREN)
+        stack.append(lex.RPAREN)
         stack.append(exparit)
         stack.append(oprel)
         stack.append(exparit)
-        stack.append(lex_e.LPAREN)
-    elif look == lex_e.NOT:
+        stack.append(lex.LPAREN)
+    elif look == lex.NOT:
         stack.pop()
         stack.append(condicion)
-        stack.append(lex_e.NOT)
+        stack.append(lex.NOT)
     else:
         error()
 
 def ciclo():
-    if look == lex_e.WHILE:
+    if look == lex.WHILE:
         stack.pop()
         stack.append(bloque)
-        stack.append(lex_e.DO)
+        stack.append(lex.DO)
         stack.append(Bool)
-        stack.append(lex_e.WHILE)
+        stack.append(lex.WHILE)
     else:
         error()
 
 def exparit():
-    if look.tag in ['ID','CONST','-'] or look == lex_e.LPAREN:
+    if look.tag in ['ID','CONST','-'] or look == lex.LPAREN:
         stack.pop()
         stack.append(sexparit)
         stack.append(term)
@@ -200,13 +201,13 @@ def sexparit():
         stack.append(sexparit)
         stack.append(term)
         stack.append(op1)
-    elif look.tag in ['ID', 'OPREL', '}'] or look in [lex_e.READ, lex_e.WRITE, lex_e.IF, lex_e.WHILE, lex_e.END, lex_e.RPAREN]:
+    elif look.tag in ['ID', 'OPREL', '}'] or look in [lex.READ, lex.WRITE, lex.IF, lex.WHILE, lex.END, lex.RPAREN]:
         stack.pop()
     else:
         error()
 
 def term():
-    if look.tag in ['ID','CONST','-'] or look == lex_e.LPAREN:
+    if look.tag in ['ID','CONST','-'] or look == lex.LPAREN:
         stack.pop()
         stack.append(sterm)
         stack.append(neg)
@@ -219,7 +220,7 @@ def sterm():
         stack.append(sterm)
         stack.append(neg)
         stack.append(op2)
-    elif look.tag in ['ID', 'OPREL', '}','+','-'] or look in [lex_e.READ, lex_e.WRITE, lex_e.IF, lex_e.WHILE, lex_e.END, lex_e.RPAREN]:
+    elif look.tag in ['ID', 'OPREL', '}','+','-'] or look in [lex.READ, lex.WRITE, lex.IF, lex.WHILE, lex.END, lex.RPAREN]:
         stack.pop()
     else:
         error()
@@ -231,7 +232,7 @@ def neg():
     elif look.tag == '-':
         stack.pop()
         stack.append(pot)
-        stack.append(lex_e.token('-','-'))
+        stack.append(lex.token('-','-'))
     else:
         error()
 
@@ -249,7 +250,7 @@ def spot():
         stack.append(spot)
         stack.append(factor)
         stack.append(op3)
-    elif look.tag in ['ID', 'OPREL', '}','+','-', 'OP2'] or look in [lex_e.READ, lex_e.WRITE, lex_e.IF, lex_e.WHILE, lex_e.END, lex_e.RPAREN]:
+    elif look.tag in ['ID', 'OPREL', '}','+','-', 'OP2'] or look in [lex.READ, lex.WRITE, lex.IF, lex.WHILE, lex.END, lex.RPAREN]:
         stack.pop()
     else:
         error()
@@ -257,30 +258,30 @@ def spot():
 def op1():
     if look.atrib == '+':
         stack.pop()
-        stack.append(lex_e.token('OP1','+'))
+        stack.append(lex.token('OP1','+'))
     elif look.atrib == '-':
         stack.pop()
-        stack.append(lex_e.token('OP1', '-'))
+        stack.append(lex.token('OP1', '-'))
     else:
         error()
 
 def op2():
     if look.atrib == '*':
         stack.pop()
-        stack.append(lex_e.token('OP2','*'))
+        stack.append(lex.token('OP2','*'))
     elif look.atrib == '/':
         stack.pop()
-        stack.append(lex_e.token('OP2', '/'))
+        stack.append(lex.token('OP2', '/'))
     else:
         error()
 
 def op3():
     if look.atrib == '**':
         stack.pop()
-        stack.append(lex_e.token('OP3','**'))
+        stack.append(lex.token('OP3','**'))
     elif look.atrib == '//':
         stack.pop()
-        stack.append(lex_e.token('OP3', '//'))
+        stack.append(lex.token('OP3', '//'))
     else:
         error()
 
@@ -288,11 +289,11 @@ def factor():
     if look.tag == 'ID':
         stack.pop()
         stack.append(look)
-    elif look == lex_e.LPAREN:
+    elif look == lex.LPAREN:
         stack.pop()
-        stack.append(lex_e.RPAREN)
+        stack.append(lex.RPAREN)
         stack.append(exparit)
-        stack.append(lex_e.LPAREN)
+        stack.append(lex.LPAREN)
     elif look.tag == 'CONST':
         stack.pop()
         stack.append(look)
@@ -302,19 +303,19 @@ def factor():
 def oprel():
     if look.atrib == '<':
         stack.pop()
-        stack.append(lex_e.token('<','<'))
+        stack.append(lex.token('<','<'))
     elif look.atrib == '>':
         stack.pop()
-        stack.append(lex_e.token('>','>'))
+        stack.append(lex.token('>','>'))
     elif look.atrib == '==':
         stack.pop()
-        stack.append(lex_e.EQ)
+        stack.append(lex.EQ)
     elif look.atrib == '>=':
         stack.pop()
-        stack.append(lex_e.GE)
+        stack.append(lex.GE)
     elif look.atrib == '<=':
         stack.pop()
-        stack.append(lex_e.LE)
+        stack.append(lex.LE)
     else:
         error()
 
