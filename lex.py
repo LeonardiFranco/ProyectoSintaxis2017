@@ -1,154 +1,164 @@
-class Tag():
-    EQ, ID, WHILE, LT, GT, AND, OR, LE, GE, DO, IF, THEN, END, ELSE, NUM, TRUE, FALSE, WRITE, READ, NE, TYPE = 'EQ','ID','WHILE','LT','GT','AND','OR','LE','GE','DO','IF','THEN','END','ELSE','NUM','TRUE','FALSE','WRITE','READ','NE','TYPE'
-                                                                                                                #257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280
-
-class Token:
-    '''Single tokens not defined in the grammar'''
-    def __init__(self,t, **kwds):
-        self.tag = t
-        super().__init__(**kwds)
-
-    def __str__(self):
-        return str(self.tag)
-
-class Num(Token):
-    '''Constant'''
-    def __init__(self,v,**kwds):
-        super().__init__(Tag.NUM,**kwds)
-        self.value = v
-
-    def __str__(self):
-        return str(self.value)
-
-class Word(Token):
-    '''Any kind of keyword, identifier or operator'''
-    def __init__(self,s,t,**kwds):
-        super().__init__(t,**kwds)
-        self.lexeme = s
-
-    def __str__(self):
-        return self.lexeme
-
-#Define environment constants
-AND = Word(s='&&', t=Tag.AND)
-OR = Word(s='||', t=Tag.OR)
-NE = Word(s='!=', t=Tag.NE)
-EQ = Word(s='==', t=Tag.EQ)
-LE = Word(s='<=', t=Tag.LE)
-GE = Word(s='>=', t=Tag.GE)
-TRUE = Word(s='true', t=Tag.TRUE)
-FALSE = Word(s='false', t=Tag.FALSE)
+from collections import namedtuple
 
 
-#Main class
-class Lex():
-    line = 1
-    end = False
-    peek = ' '
-    words = {}
+token = namedtuple('Token', ['tag', 'atrib'])
 
-    def reserve(self,w):
-        self.words[w.lexeme] = w
+def id(tag, lexeme):
+    return token(tag, lexeme)
 
-    def __init__(self,string=''):
-        '''Reserves keywords and sets up variables'''
-        self.reserve(Word(s='si', t=Tag.IF))
-        self.reserve(Word(s='entonces',t=Tag.THEN))
-        self.reserve(Word(s='sino', t=Tag.ELSE))
-        self.reserve(Word(s='mientras', t=Tag.WHILE))
-        self.reserve(Word(s='hacer', t=Tag.DO))
-        self.reserve(Word(s='fin',t=Tag.END))
-        self.reserve(Word(s='leer',t=Tag.READ))
-        self.reserve(Word(s='escribir',t=Tag.WRITE))
-        self.reserve(TRUE)
-        self.reserve(FALSE)
-        self.string=string
-        self.itstring=self.gen()
+def num(value):
+    return token('CONST', value)
 
-    def gen(self):
-        '''Returns a character of the input string at a time'''
-        for c in self.string:
-            yield c
+def reserve(w):
+    global words
+    words[w.atrib] = w
 
-    def readch(self, c=None):
-        if c:
-            self.readch()
-            if self.peek != c:
-                return False
-            self.peek = ' '
-            return True
-        else:
-            try:
-                self.peek = next(self.itstring)
-            except(StopIteration):
-                self.end = True
-                self.peek = ''
 
-    def scan(self):
-        '''Scans the string and returns the first token it finds'''
+def readch(c=None):
+    global peek, end, itstring
+    if c:
+        readch()
+        if peek !=c:
+            return False
+        peek = ' '
+        return True
+    else:
+        try:
+            peek = next(itstring)
+        except(StopIteration):
+            end = True
+            peek = ''
 
-        #Recognizes and strips spaces, tabs or new lines
-        while self.peek == ' ' or self.peek == '\t' or self.peek == '\n':
-            if self.peek == '\n':
-                self.line += 1
-            self.readch()
-        #Recognizes relational or logical operators
-        if self.peek == '&':
-            return AND if self.readch('&') else Token('&')
-        elif self.peek == '|':
-            return OR if self.readch('|') else Token(t='|')
-        elif self.peek == '=':
-            return EQ if self.readch('=') else Token(t='=')
-        elif self.peek == '!':
-            return NE if self.readch('=') else Token(t='!')
-        elif self.peek == '<':
-            return LE if self.readch('=') else Token(t='<')
-        elif self.peek == '>':
-            return GE if self.readch('=') else Token(t='>')
-        #Recognizes a number
-        if self.peek.isdigit():
-            value = 0
-            while self.peek.isdigit():
-                value = 10*value + int(self.peek)
-                self.readch()
-            if self.peek != '.':
-                return Num(v=value)
-            d = 10.0
-            self.readch()
-            while self.peek.isdigit():
-                value = value + int(self.peek) / d
-                d *= 10.0;
-                self.readch()
-            return Num(v=value)
-        #Recognizes an identifier or keyword
-        if self.peek.isalpha() or self.peek == '_':
-            buff = ''
-            while self.peek.isdigit() or self.peek.isalpha() or self.peek == '_':
-                buff += self.peek
-                self.readch()
-            w = self.words.get(buff)
-            if w:
-                return w
-            w = Word(s=buff, t=Tag.ID)
-            self.words[buff] = w
+AND = id(tag='OPLOG',lexeme='and')
+OR = id(tag='OPLOG', lexeme='or')
+NOT = id(tag='OPLOG', lexeme='not')
+NE = id(tag='OPREL', lexeme='<>')
+EQ = id(tag='OPREL', lexeme='==')
+LE = id(tag='OPREL', lexeme='<=')
+GE = id(tag='OPREL', lexeme='>=')
+POT = id(tag='OP3', lexeme='**')
+RAIZ = id(tag='OP3', lexeme='//')
+IF = id(tag='IF', lexeme='si')
+THEN = id(tag='THEN', lexeme='entonces')
+ELSE = id(tag='ELSE', lexeme='sino')
+WHILE = id(tag='WHILE', lexeme='mientras')
+DO = id(tag='DO', lexeme='hacer')
+END = id(tag='END', lexeme='fin')
+READ = id(tag='READ', lexeme='leer')
+WRITE = id(tag='WRITE', lexeme='escribir')
+LPAREN = id(tag='(', lexeme='(')
+RPAREN = id(tag=')', lexeme=')')
+
+def scan():
+    global peek, end, words, line
+
+    #Define constants, and reserve words
+    AND = id(tag='OPLOG',lexeme='and')
+    OR = id(tag='OPLOG', lexeme='or')
+    NOT = id(tag='OPLOG', lexeme='not')
+    NE = id(tag='OPREL', lexeme='<>')
+    EQ = id(tag='OPREL', lexeme='==')
+    LE = id(tag='OPREL', lexeme='<=')
+    GE = id(tag='OPREL', lexeme='>=')
+    POT = id(tag='OP3', lexeme='**')
+    RAIZ = id(tag='OP3', lexeme='//')
+    IF = id(tag='IF', lexeme='si')
+    THEN = id(tag='THEN', lexeme='entonces')
+    ELSE = id(tag='ELSE', lexeme='sino')
+    WHILE = id(tag='WHILE', lexeme='mientras')
+    DO = id(tag='DO', lexeme='hacer')
+    END = id(tag='END', lexeme='fin')
+    READ = id(tag='READ', lexeme='leer')
+    WRITE = id(tag='WRITE', lexeme='escribir')
+    reserve(IF)
+    reserve(ELSE)
+    reserve(THEN)
+    reserve(WHILE)
+    reserve(DO)
+    reserve(END)
+    reserve(READ)
+    reserve(WRITE)
+    reserve(AND)
+    reserve(OR)
+    reserve(NOT)
+
+
+    while peek == ' ' or peek == '\t' or peek == '\n':
+        if peek == '\n':
+            line += 1
+        readch()
+
+    #Recognizes relational operators
+    if peek == '=':
+        return EQ if readch('=') else token(tag='=',atrib='=')
+    elif peek == '!':
+        return NE if readch('=') else token(tag='!',atrib='!')
+    elif peek == '<':
+        return LE if readch('=') else token(tag='OPREL',atrib='<')
+    elif peek == '>':
+        return GE if readch('=') else token(tag='OPREL',atrib='>')
+    elif peek == '*':
+        return POT if readch('*') else token(tag='OP2', atrib='*')
+    elif peek == '/':
+        return RAIZ if readch('/') else token(tag='OP2', atrib='/')
+
+    #Recognizes a number
+    if peek.isdigit():
+        value = 0
+        while peek.isdigit():
+            value = 10*value + int(peek)
+            readch()
+        if peek != '.':
+            return num(value=value)
+        d = 10.0
+        readch()
+        while peek.isdigit():
+            value = value + int(peek) / d
+            d *= 10.0;
+            readch()
+        return num(value=value)
+
+    #Recognizes an identifier or keyword
+    if peek.isalpha() or peek == '_':
+        buff = ''                                               #Reconocio una letra o un guion bajo, establece un buffer
+        while peek.isdigit() or peek.isalpha() or peek == '_':  #Pregunta si es un digito, una letra o un guion
+            buff += peek                                        #Mientras lo sea lo va poniendo en el buffer
+            readch()                                            #Lee el proximo caracter
+        w = words.get(buff)                                     #Busca la palabra reconocida en la TS
+        if w:                                                   #Si esta la devuelve
             return w
+        w = id(lexeme=buff, tag='ID')                           #Si no, crea la estructura
+        words[buff] = w                                         #Y la inserta en la TS
+        return w                                                #Luego la devuelve
 
-        #Recognizes other characters
-        tok = Token(t=self.peek)
-        self.peek = ' '
-        return tok
+    #Recognizes strings between ""
+    if peek == '"':
+        buff = ''
+        readch()
+        while peek != '"':
+            buff += peek
+            readch()
+        readch()
+        return id('CADENA',buff)
 
-string = '''si (2 == 4)  entonces
-culo = a.
-fin.'''
+    #Recognizes other characters
+    tok = token(tag=peek,atrib=peek)
+    peek = ' '
+    return tok
+
+
+line = 1
+end = False
+peek = ' '
+words = {}
+string = '''a=1
+fin'''
+itstring = iter(string)
+
 if __name__ == '__main__':
     l=[]
-    lex = Lex(string=string)
-    while not lex.end:
-        tok = lex.scan()
+    while not end:
+        tok = scan()
         l.append(tok.tag)
     print(l)
-    print(lex.line)
-    print(lex.words['entonces'])
-
-
+    print(line)
