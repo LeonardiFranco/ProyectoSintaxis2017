@@ -1,3 +1,4 @@
+'''Tabla de Analisis Sintactico, implementada en un diccionario'''
 TAS = {
     'programa':{
         'ID':['seq', 'END'],
@@ -22,7 +23,7 @@ TAS = {
         'READ':['lectura'],
         'WRITE':['escritura'],
         'IF':['condicional'],
-        'WHILE':['mientras']
+        'WHILE':['ciclo']
         },
     'asignacion':{
         'ID':['ID','=','exparit']
@@ -49,7 +50,8 @@ TAS = {
         'WHILE':['WHILE','bool','DO','bloque']
         },
     'bool':{
-        '(':['condicion','sbool']
+        '(':['condicion','sbool'],
+        'OPNOT':['condicion','sbool']
         },
     'sbool':{
         'OPLOG':['OPLOG','condicion','sbool'],

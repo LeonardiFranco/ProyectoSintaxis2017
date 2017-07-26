@@ -1,3 +1,4 @@
+'''Definicion de la estructura principal del analizador sintactico'''
 class ATree(object):
     def __init__(self,data,parent):
         self.data = data

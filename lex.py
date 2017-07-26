@@ -146,8 +146,7 @@ class Lexer(object):
 
 if __name__ == '__main__':
     l=[]
-    lex = Lexer('''a=1+1
-                fin''')
+    lex = Lexer(open("example.pstlv").read())
     while not lex.end:
         tok = lex.scan()
         l.append(tok.tag)

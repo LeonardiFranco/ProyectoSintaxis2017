@@ -12,5 +12,23 @@ Analizador Léxico
 Analizador Sintáctico
 ---------------------
 
-.. automodule:: parser_proj
+.. automodule:: parser
+    :members:
+
+tas.py
+------
+
+.. automodule:: tas
+    :members:
+
+tree.py
+-------
+
+.. automodule:: tree
+    :members:
+
+main.py
+-------
+
+.. automodule:: main
     :members:

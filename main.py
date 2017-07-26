@@ -1,6 +1,15 @@
-import lex,parser_proj,sys
+import lex,parser,sys
 
-string = '''a=2
-fin'''#sys.argv[1]
+source = sys.argv[1]
+with open(source) as f:
+    string = f.read()
 lexer = lex.Lexer(string)
-print(parser_proj.Parser(lexer).parse()[1])
+(AST,struc)=parser.Parser(lexer).parse()
+#print(AST)
+print(struc)
+# l=[]
+# while not lexer.end:
+#     tok = lexer.scan()
+#     l.append(tok)
+# print(l)
+# print(lexer.line)
