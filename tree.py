@@ -18,11 +18,3 @@ class ATree(object):
 
     def __repr__(self):
         return str(self.data) + str(self.children)
-
-    def mostrar_arbol(self):
-        if self == None:
-            pass
-        else:
-            print(self.get_data())
-            for hijo in self.get_children():
-                hijo.mostrar_arbol()

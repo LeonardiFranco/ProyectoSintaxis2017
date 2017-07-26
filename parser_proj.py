@@ -1,188 +1,56 @@
 '''Interactua con el analizador lexico para devolver un arbol de analisis sintactico.'''
 
-import lex
 from tree import ATree
-
-TAS = {
-    'programa':{
-        'ID':['seq', 'END'],
-        'READ':['seq', 'END'],
-        'WRITE':['seq', 'END'],
-        'IF':['seq', 'END'],
-        'WHILE':['seq', 'END'],
-        'END':['seq', 'END'],
-        '}':['seq', 'END'],
-        },
-    'seq':{
-        'ID':['sentencia', 'seq'],
-        'READ':['sentencia', 'seq'],
-        'WRITE':['sentencia', 'seq'],
-        'IF':['sentencia', 'seq'],
-        'WHILE':['sentencia', 'seq'],
-        'END':[],
-        '}':[],
-        },
-    'sentencia':{
-        'ID':['asignacion'],
-        'READ':['lectura'],
-        'WRITE':['escritura'],
-        'IF':['condicional'],
-        'WHILE':['mientras']
-        },
-    'asignacion':{
-        'ID':['ID','=','exparit']
-        },
-    'lectura':{
-        'READ':['READ','(','CADENA', ',' ,'ID',')']
-        },
-    'escritura':{
-        'WRITE':['WRITE','(','CADENA', ',' ,'exparit',')']
-        },
-    'condicional':{
-        'IF':['IF','bool','THEN','bloque','else']
-        },
-    'else':{
-        'ID':[],
-        'READ':[],
-        'WRITE':[],
-        'IF':[],
-        'ELSE':['ELSE','bloque'],
-        'END':[],
-        '}':[]
-        },
-    'ciclo':{
-        'WHILE':['WHILE','bool','DO','bloque']
-        },
-    'bool':{
-        '(':['condicion','sbool']
-        },
-    'sbool':{
-        'OPLOG':['OPLOG','condicion','sbool'],
-        'THEN':[],
-        'DO':[]
-        },
-    'condicion':{
-        '(':['(','exparit','OPREL','exparit',')'],
-        'OPNOT':['OPNOT','condicion']
-        },
-    'bloque':{
-        '{':['{','seq','}']
-        },
-    'exparit':{
-        'ID':['term', 'sexparit'],
-        '(':['term', 'sexparit'],
-        'CONST':['term', 'sexparit'],
-        'OPR':['term', 'sexparit'],
-        },
-    'sexparit':{
-        'ID':[],
-        'READ':[],
-        'WRITE':[],
-        'IF':[],
-        'WHILE':[],
-        'OPR':['OPR','term','sexparit'],
-        'OPS':['OPS','term','sexparit'],
-        'OPREL':[],
-        'END':[],
-        ')':[],
-        '}':[]
-        },
-    'term':{
-        'ID':['neg', 'sterm'],
-        '(':['neg', 'sterm'],
-        'CONST':['neg', 'sterm'],
-        'OPR':['neg', 'sterm'],
-        },
-    'sterm':{
-        'ID':[],
-        'READ':[],
-        'WRITE':[],
-        'IF':[],
-        'WHILE':[],
-        'OPR':[],
-        'OPS':[],
-        'OP2':['OP2','neg','sterm'],
-        'OPREL':[],
-        'END':[],
-        ')':[],
-        '}':[]
-        },
-    'neg':{
-        'ID':['pot'],
-        '(':['pot'],
-        'CONST':['pot'],
-        'OPR':['OPR', 'pot'],
-        },
-    'pot':{
-        'ID':['factor','spot'],
-        '(':['factor','spot'],
-        'CONST':['factor', 'spot'],
-        },
-    'spot':{
-        'ID':[],
-        'READ':[],
-        'WRITE':[],
-        'IF':[],
-        'WHILE':[],
-        'OPR':[],
-        'OPS':[],
-        'OP2':[],
-        'OP3':['OP3','factor','spot'],
-        'OPREL':[],
-        'END':[],
-        ')':[],
-        '}':[]
-        },
-    'factor':{
-        'ID':['ID'],
-        '(':['(','exparit',')'],
-        'CONST':['CONST']
-        },
-    }
-
-def move():
-    '''Le pide al analizador lexico el siguiente componente lexico.'''
-    global look
-    look = lex.scan()
-
-def error(s='Syntax Error'):
-    '''Eleva un error sintactico.'''
-    raise Exception(lex.line,s)
+from tas import TAS
 
 
-stack = ['$','programa']
-look = None
-top = stack[-1]
-move()
-root = ATree(top,None)
-current_node = root
-#struc = []
+class Parser(object):
 
-while top != '$':
-    if current_node.get_children():
-        for child in current_node.get_children():
-            if child.get_data() == top:
-                current_node = child
-    while current_node.get_data() != top:
-        if current_node.get_parent() != None:
-            current_node = current_node.get_parent()
-            for child in current_node.get_children():
-                if child.get_data() == top:
-                    current_node = child
-    if TAS.get(top) != None:
-        prod = TAS[top].get(look.tag)
-        if prod != None:
-            for simb in prod:
-                current_node.add_child(ATree(simb,current_node))
-            stack.pop()
-            stack += list(reversed(prod))
-        else:
-            error()
-    elif top == look.tag:
-        current_node.add_child(ATree(look,current_node))
-        #struc.append(look)
-        stack.pop()
-        move()
-    else:
-        error()
-    top = stack[-1]
+    def __init__(self,lexer):
+        self.lexer = lexer
+        self.stack = ['$','programa']
+        self.look = None
+        self.top = self.stack[-1]
+        self.move()
+        self.root = ATree(self.top,None)
+        self.current_node = self.root
+        self.struc = []
+
+    def move(self):
+        '''Le pide al analizador lexico el siguiente componente lexico.'''
+        self.look = self.lexer.scan()
+
+    def error(self,s='Syntax Error'):
+        '''Eleva un error sintactico.'''
+        raise Exception(self.lexer.line,s)
+
+    def parse(self):
+        while self.top != '$':
+            if self.current_node.get_children():
+                for child in self.current_node.get_children():
+                    if child.get_data() == self.top:
+                        self.current_node = child
+            while self.current_node.get_data() != self.top:
+                if self.current_node.get_parent() != None:
+                    self.current_node = self.current_node.get_parent()
+                    for child in self.current_node.get_children():
+                        if child.get_data() == self.top:
+                            self.current_node = child
+            if TAS.get(self.top) != None:
+                prod = TAS[self.top].get(self.look.tag)
+                if prod != None:
+                    for simb in prod:
+                        self.current_node.add_child(ATree(simb,self.current_node))
+                    self.stack.pop()
+                    self.stack += list(reversed(prod))
+                else:
+                    self.error()
+            elif self.top == self.look.tag:
+                self.current_node.add_child(ATree(self.look,self.current_node))
+                self.struc.append(self.look)
+                self.stack.pop()
+                self.move()
+            else:
+                self.error()
+            self.top = self.stack[-1]
+        return (self.root,self.struc)

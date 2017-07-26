@@ -1,8 +1,6 @@
-import lex as lexer
+import lex,parser_proj,sys
 
-string = "9+5-2"#raw_input("Texto a traducir: ") place holder
-
-lex = lexer.Lex(string)
-lex.scan()
-#parse = Parser(lex) #hasta que no haga el parser no lo puedo parsear hehe
-#parse.program()
+string = '''a=2
+fin'''#sys.argv[1]
+lexer = lex.Lexer(string)
+print(parser_proj.Parser(lexer).parse()[1])
