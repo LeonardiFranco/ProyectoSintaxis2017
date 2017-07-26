@@ -8,6 +8,8 @@ end = False
 peek = ' '
 words={}
 string = '''a=2-1
+si (a==2) entonces
+{h=4}
 fin'''
 itstring = iter(string)
 token = namedtuple('Token', ['tag', 'atrib'])
@@ -41,25 +43,26 @@ def readch(c=None):
             peek = ''
 
 #Environment constants
-env = {'AND' : id(tag='OPLOG',lexeme='and'),
-'OR' : id(tag='OPLOG', lexeme='or'),
-'NOT' : id(tag='OPNOT', lexeme='not'),
-'NE' : id(tag='OPREL', lexeme='<>'),
-'EQ' : id(tag='OPREL', lexeme='=='),
-'LE' : id(tag='OPREL', lexeme='<='),
-'GE' : id(tag='OPREL', lexeme='>='),
-'POT' : id(tag='OP3', lexeme='**'),
-'RAIZ' : id(tag='OP3', lexeme='//'),
-'IF' : id(tag='IF', lexeme='si'),
-'THEN' : id(tag='THEN', lexeme='entonces'),
-'ELSE' : id(tag='ELSE', lexeme='sino'),
-'WHILE' : id(tag='WHILE', lexeme='mientras'),
-'DO' : id(tag='DO', lexeme='hacer'),
-'END' : id(tag='END', lexeme='fin'),
-'READ' : id(tag='READ', lexeme='leer'),
-'WRITE' : id(tag='WRITE', lexeme='escribir'),
-'LPAREN' : id(tag='(', lexeme='('),
-'RPAREN' : id(tag=')', lexeme=')'),
+env = {
+    'AND' : id(tag='OPLOG',lexeme='and'),
+    'OR' : id(tag='OPLOG', lexeme='or'),
+    'NOT' : id(tag='OPNOT', lexeme='not'),
+    'NE' : id(tag='OPREL', lexeme='<>'),
+    'EQ' : id(tag='OPREL', lexeme='=='),
+    'LE' : id(tag='OPREL', lexeme='<='),
+    'GE' : id(tag='OPREL', lexeme='>='),
+    'POT' : id(tag='OP3', lexeme='**'),
+    'RAIZ' : id(tag='OP3', lexeme='//'),
+    'IF' : id(tag='IF', lexeme='si'),
+    'THEN' : id(tag='THEN', lexeme='entonces'),
+    'ELSE' : id(tag='ELSE', lexeme='sino'),
+    'WHILE' : id(tag='WHILE', lexeme='mientras'),
+    'DO' : id(tag='DO', lexeme='hacer'),
+    'END' : id(tag='END', lexeme='fin'),
+    'READ' : id(tag='READ', lexeme='leer'),
+    'WRITE' : id(tag='WRITE', lexeme='escribir'),
+    'LPAREN' : id(tag='(', lexeme='('),
+    'RPAREN' : id(tag=')', lexeme=')'),
 }
 
 reserve(env['IF'])
