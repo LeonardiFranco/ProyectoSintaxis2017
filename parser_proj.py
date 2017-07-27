@@ -5,8 +5,9 @@ from tas import TAS
 
 
 class Parser(object):
-
+    '''Clase principal del Analizador Sintactico.'''
     def __init__(self,lexer):
+        '''Metodo constructor del AS'''
         self.lexer = lexer
         self.stack = ['$','programa']
         self.look = None
@@ -25,8 +26,9 @@ class Parser(object):
         raise Exception(self.lexer.line,s)
 
     def parse(self):
+        '''Metodo principal del Analizador Sintactico, construye el arbol de analisis sintactico y lo devuelve.'''
         while self.top != '$':
-            #print(self.stack,self.top)
+            #print(self.stack,self.current_node,self.top, sep= ' // ')
             if self.current_node.get_children():
                 for child in self.current_node.get_children():
                     if child.get_data() == self.top:

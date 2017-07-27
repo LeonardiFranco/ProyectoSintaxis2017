@@ -13,7 +13,7 @@ Integrantes
 * Juan Vera.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Tabla de contenidos:
 
    intro
@@ -26,4 +26,3 @@ Indices
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`

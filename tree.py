@@ -1,5 +1,6 @@
-'''Definicion de la estructura principal del analizador sintactico'''
+'''Definicion de la estructura que devuelve el analizador sintactico'''
 class ATree(object):
+    '''Clase principal de la estructura, define un arbol de analisis sintactico.'''
     def __init__(self,data,parent):
         self.data = data
         self.parent = parent

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Definicion de Componentes Léxicos &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
+  <title>Definicion de Componentes Léxicos &mdash; documentación de Proyecto Final Sintaxis 2017 - 1.0</title>
   
 
   
@@ -35,9 +35,9 @@
         <link rel="index" title="Índice"
               href="genindex.html"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
-    <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 0.1" href="index.html"/>
-        <link rel="next" title="Gramática modificada y TAS." href="gram-tas.html"/>
-        <link rel="prev" title="Introduccion" href="intro.html"/> 
+    <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 1.0" href="index.html"/>
+        <link rel="next" title="Gramática" href="gram-tas.html"/>
+        <link rel="prev" title="Introducción" href="intro.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1
+                1.0
               </div>
             
           
@@ -92,9 +92,10 @@
             
               <p class="caption"><span class="caption-text">Tabla de contenidos:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduccion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introducción</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Definicion de Componentes Léxicos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática modificada y TAS.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gram-tas.html#tabla-de-analisis-sintactico">Tabla de Análisis Sintáctico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiler.html">Interprete</a></li>
 </ul>
 
@@ -162,10 +163,10 @@
   <div class="section" id="definicion-de-componentes-lexicos">
 <h1>Definicion de Componentes Léxicos<a class="headerlink" href="#definicion-de-componentes-lexicos" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Las siguientes lineas definen las expresiones regulares de los componentes lexicos complejos:</p>
-<p>num = [0..9], let = [a-Z]</p>
+<p>num = [0-9], let = [a-Z]</p>
 <dl class="docutils">
 <dt>Constante numerica:</dt>
-<dd>num num* ( | . num num*)( | E ( | - ) num num*)</dd>
+<dd>num num* ( | . num num*)</dd>
 <dt>Identificador:</dt>
 <dd>(_|let)(_ | let | num)*</dd>
 </dl>
@@ -181,10 +182,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gram-tas.html" class="btn btn-neutral float-right" title="Gramática modificada y TAS." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gram-tas.html" class="btn btn-neutral float-right" title="Gramática" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="intro.html" class="btn btn-neutral" title="Introduccion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="intro.html" class="btn btn-neutral" title="Introducción" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -215,7 +216,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

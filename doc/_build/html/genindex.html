@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Índice &mdash; documentación de Proyecto Final Sintaxis 2017 - 0.1</title>
+  <title>Índice &mdash; documentación de Proyecto Final Sintaxis 2017 - 1.0</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Índice"
               href="#"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
-    <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 0.1" href="index.html"/> 
+    <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 1.0" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.1
+                1.0
               </div>
             
           
@@ -91,9 +91,9 @@
             
               <p class="caption"><span class="caption-text">Tabla de contenidos:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduccion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introducción</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp-lex.html">Definicion de Componentes Léxicos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática modificada y TAS.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Definición Sintáctica</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiler.html">Interprete</a></li>
 </ul>
 
@@ -160,19 +160,22 @@
 <h1 id="index">Índice</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#A"><strong>A</strong></a>
  | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  
 </div>
-<h2 id="C">C</h2>
+<h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.compilest">compilest() (en el módulo parser)</a>
+      <li><a href="compiler.html#tree.ATree">ATree (clase en tree)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -180,7 +183,15 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.expr">expr() (en el módulo parser)</a>
+      <li><a href="compiler.html#parser_proj.Parser.error">error() (método de parser_proj.Parser)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#module-funcs">funcs (módulo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -188,11 +199,11 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.isexpr">isexpr() (en el módulo parser)</a>
+      <li><a href="compiler.html#interpreter.Interpreter">Interpreter (clase en interpreter)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.issuite">issuite() (en el módulo parser)</a>
+      <li><a href="compiler.html#module-interpreter">interpreter (módulo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -203,12 +214,46 @@
       <li><a href="compiler.html#module-lex">lex (módulo)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#lex.Lexer">Lexer (clase en lex)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#parser_proj.Parser.move">move() (método de parser_proj.Parser)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-parser">parser (módulo)</a>
+      <li><a href="compiler.html#parser_proj.Parser.parse">parse() (método de parser_proj.Parser)</a>
+</li>
+      <li><a href="compiler.html#parser_proj.Parser">Parser (clase en parser_proj)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#module-parser_proj">parser_proj (módulo)</a>
+</li>
+      <li><a href="compiler.html#interpreter.Interpreter.preorder">preorder() (método de interpreter.Interpreter)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#funcs.read">read() (en el módulo funcs)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="compiler.html#lex.Lexer.readch">readch() (método de lex.Lexer)</a>
+</li>
+      <li><a href="compiler.html#lex.Lexer.reserve">reserve() (método de lex.Lexer)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -216,17 +261,7 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.sequence2st">sequence2st() (en el módulo parser)</a>
-</li>
-      <li><a href="compiler.html#parser.st2list">st2list() (en el módulo parser)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#parser.st2tuple">st2tuple() (en el módulo parser)</a>
-</li>
-      <li><a href="compiler.html#parser.STType">STType (en el módulo parser)</a>
-</li>
-      <li><a href="compiler.html#parser.suite">suite() (en el módulo parser)</a>
+      <li><a href="compiler.html#lex.Lexer.scan">scan() (método de lex.Lexer)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -240,9 +275,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="compiler.html#module-tree">tree (módulo)</a>
+      <li><a href="compiler.html#interpreter.Interpreter.translate">translate() (método de interpreter.Interpreter)</a>
 </li>
-      <li><a href="compiler.html#parser.tuple2st">tuple2st() (en el módulo parser)</a>
+      <li><a href="compiler.html#module-tree">tree (módulo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -283,7 +318,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

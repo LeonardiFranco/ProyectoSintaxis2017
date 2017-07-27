@@ -11,26 +11,29 @@ def num(value):
     return token('CONST', value)
 
 class Lexer(object):
-
+    '''Clase principal del analizador lexico'''
     def __init__(self, string):
-        def reserve(w):
-            self.words[w.atrib] = w
+        '''Metodo constructor de la clase, establece palabras reservadas y variables de la instancia.'''
         self.line = 1
         self.end = False
         self.peek = ' '
         self.words={}
         self.itstring = iter(string)
-        reserve(self.env['IF'])
-        reserve(self.env['ELSE'])
-        reserve(self.env['THEN'])
-        reserve(self.env['WHILE'])
-        reserve(self.env['DO'])
-        reserve(self.env['END'])
-        reserve(self.env['READ'])
-        reserve(self.env['WRITE'])
-        reserve(self.env['AND'])
-        reserve(self.env['OR'])
-        reserve(self.env['NOT'])
+        self.reserve(self.env['IF'])
+        self.reserve(self.env['ELSE'])
+        self.reserve(self.env['THEN'])
+        self.reserve(self.env['WHILE'])
+        self.reserve(self.env['DO'])
+        self.reserve(self.env['END'])
+        self.reserve(self.env['READ'])
+        self.reserve(self.env['WRITE'])
+        self.reserve(self.env['AND'])
+        self.reserve(self.env['OR'])
+        self.reserve(self.env['NOT'])
+
+    def reserve(self,w):
+        '''Reserva palabras en la tabla de simbolos'''
+        self.words[w.atrib] = w
 
     def readch(self,c=None):
         '''Obtiene el proximo caracter del programa de entrada,
@@ -73,13 +76,14 @@ class Lexer(object):
     }
 
     def scan(self):
-
+        '''Metodo principal del Analizador Lexico, cada vez que se lo llama devuelve un componente lexico.'''
+        #Elimina espacios
         while self.peek == ' ' or self.peek == '\t' or self.peek == '\n':
             if self.peek == '\n':
                 self.line += 1
             self.readch()
 
-        #Recognizes relational operators
+        #Reconoce operadores
         if self.peek == '=':
             return self.env['EQ'] if self.readch('=') else token(tag='=',atrib='=')
         elif self.peek == '!':
@@ -93,7 +97,7 @@ class Lexer(object):
         elif self.peek == '/':
             return self.env['RAIZ'] if self.readch('/') else token(tag='OP2', atrib='/')
 
-        #Recognizes a number
+        #Reconoce un numero
         if self.peek.isdigit():
             value = 0
             while self.peek.isdigit():
@@ -109,20 +113,20 @@ class Lexer(object):
                 self.readch()
             return num(value=value)
 
-        #Recognizes an identifier or keyword
+        #Reconoce un identificador o palabra reservada
         if self.peek.isalpha() or self.peek == '_':
-            buff = ''                                               #Reconocio una letra o un guion bajo, establece un buffer
-            while self.peek.isdigit() or self.peek.isalpha() or self.peek == '_':  #Pregunta si es un digito, una letra o un guion
-                buff += self.peek                                        #Mientras lo sea lo va poniendo en el buffer
-                self.readch()                                            #Lee el proximo caracter
-            w = self.words.get(buff)                                     #Busca la palabra reconocida en la TS
-            if w:                                                   #Si esta la devuelve
+            buff = ''                                                               #Reconocio una letra o un guion bajo, establece un buffer
+            while self.peek.isdigit() or self.peek.isalpha() or self.peek == '_':   #Pregunta si es un digito, una letra o un guion
+                buff += self.peek                                                   #Mientras lo sea lo va poniendo en el buffer
+                self.readch()                                                       #Lee el proximo caracter
+            w = self.words.get(buff)                                                #Busca la palabra reconocida en la TS
+            if w:                                                                   #Si esta la devuelve
                 return w
-            w = id(lexeme=buff, tag='ID')                           #Si no, crea la estructura
-            self.words[buff] = w                                         #Y la inserta en la TS
-            return w                                                #Luego la devuelve
+            w = id(lexeme=buff, tag='ID')                                           #Si no, crea la estructura
+            self.reserve(w)                                                         #Y la inserta en la TS
+            return w                                                                #Luego la devuelve
 
-        #Recognizes strings between ""
+        #Reconoce cadenas entre comillas
         if self.peek == '"':
             buff = ''
             self.readch()
@@ -132,23 +136,25 @@ class Lexer(object):
             self.readch()
             return id('CADENA',buff)
 
+        #Reconoce el signo + y -
         if self.peek == '+':
             self.readch()
             return token(tag='OPS',atrib='+')
         if self.peek == '-':
             self.readch()
             return token(tag='OPR',atrib='-')
-        #Recognizes other characters
+
+        #Reconoce otros caracteres
         tok = token(tag=self.peek,atrib=self.peek)
         self.peek = ' '
         return tok
 
 
-if __name__ == '__main__':
-    l=[]
-    lex = Lexer(open("example.pstlv").read())
-    while not lex.end:
-        tok = lex.scan()
-        l.append(tok.tag)
-    print(l)
-    print(lex.line)
+# if __name__ == '__main__':
+#     l=[]
+#     lex = Lexer(open("example.pstlv").read())
+#     while not lex.end:
+#         tok = lex.scan()
+#         l.append(tok.tag)
+#     print(l)
+#     print(lex.line)
