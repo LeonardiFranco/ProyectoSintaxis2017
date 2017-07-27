@@ -1,9 +1,0 @@
-Definicion de Componentes Léxicos
-=================================
-
-Expresiones Regulares
----------------------
-
-Constante numerica: num num* ( | . num num*)( | E ( | - ) num num*)
-
-Identificador: (_|let)(_ | let | num)*

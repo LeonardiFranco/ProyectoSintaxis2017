@@ -14,7 +14,12 @@ lexer = lex.Lexer(string)
 inte = interpreter.Interpreter(AST)
 
 inte.translate()
+def preorden(ast):
+    print(ast)
+    for child in ast.children:
+        preorden(child)
 
 with open("inter.py", "r") as f:
     prog = f.read()
     exec(prog)
+# preorden(AST)

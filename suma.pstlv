@@ -1,0 +1,11 @@
+n = 0
+i = 0
+sum= 0
+leer("Ingrese el numero al cual desea calcularle la sumatoria: ",n)
+mientras i<n hacer
+{
+    i=i+1
+    sum=sum+i
+}
+escribir("La suma es",sum)
+fin

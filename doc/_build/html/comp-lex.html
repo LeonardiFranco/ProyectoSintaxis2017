@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Búsqueda" href="search.html"/>
     <link rel="top" title="documentación de Proyecto Final Sintaxis 2017 - 1.0" href="index.html"/>
-        <link rel="next" title="Gramática" href="gram-tas.html"/>
+        <link rel="next" title="Definición Sintáctica" href="gram-tas.html"/>
         <link rel="prev" title="Introducción" href="intro.html"/> 
 
   
@@ -94,8 +94,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introducción</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Definicion de Componentes Léxicos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Gramática</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gram-tas.html#tabla-de-analisis-sintactico">Tabla de Análisis Sintáctico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Definición Sintáctica</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compiler.html">Interprete</a></li>
 </ul>
 
@@ -165,6 +164,8 @@
 <p>Las siguientes lineas definen las expresiones regulares de los componentes lexicos complejos:</p>
 <p>num = [0-9], let = [a-Z]</p>
 <dl class="docutils">
+<dt>Cadena:</dt>
+<dd>&#8220;(<a href="#id1"><span class="problematic" id="id2">|</span></a>let|num)*&#8221;</dd>
 <dt>Constante numerica:</dt>
 <dd>num num* ( | . num num*)</dd>
 <dt>Identificador:</dt>
@@ -182,7 +183,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gram-tas.html" class="btn btn-neutral float-right" title="Gramática" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gram-tas.html" class="btn btn-neutral float-right" title="Definición Sintáctica" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="intro.html" class="btn btn-neutral" title="Introducción" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -197,8 +198,7 @@
         &copy; Copyright 2017, Franco Leonardi.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

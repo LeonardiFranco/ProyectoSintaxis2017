@@ -29,15 +29,15 @@ class Parser(object):
         '''Metodo principal del Analizador Sintactico, construye el arbol de analisis sintactico y lo devuelve.'''
         while self.top != '$':
             #print(self.stack,self.current_node,self.top, sep= ' // ')
-            if self.current_node.get_children():
-                for child in self.current_node.get_children():
-                    if child.get_data() == self.top:
+            if self.current_node.children:
+                for child in self.current_node.children:
+                    if child.data == self.top:
                         self.current_node = child
-            while self.current_node.get_data() != self.top:
-                if self.current_node.get_parent() != None:
-                    self.current_node = self.current_node.get_parent()
-                    for child in self.current_node.get_children():
-                        if child.get_data() == self.top:
+            while self.current_node.data != self.top:
+                if self.current_node.parent != None:
+                    self.current_node = self.current_node.parent
+                    for child in self.current_node.children:
+                        if child.data == self.top:
                             self.current_node = child
             if TAS.get(self.top) != None:
                 prod = TAS[self.top].get(self.look.tag)

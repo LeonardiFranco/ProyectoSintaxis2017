@@ -9,14 +9,5 @@ class ATree(object):
     def add_child(self,child):
         self.children.append(child)
 
-    def get_parent(self):
-        return self.parent
-
-    def get_children(self):
-        return self.children
-
-    def get_data(self):
-        return self.data
-
     def __repr__(self):
         return str(self.data) + str(self.children)

@@ -6,6 +6,6 @@ leer("ingrese punto x1: ", x1)
 leer("ingrese punto y1: ", y1)
 leer("ingrese punto x2: ", x2)
 leer("ingrese punto y2: ", y2)
-dist = ((x2-x1)**2 + (y2-y1)**2)//2
+dist = ((x2-x1)**2 + (y2-y1)**2)**(1/2)
 escribir("la distancia euclideana es :", dist)
 fin

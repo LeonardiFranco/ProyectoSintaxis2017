@@ -7,7 +7,6 @@ class Interpreter(object):
     def __init__(self, ast):
         self.ast = ast
         self.indent = 0
-        self.op = False
 
     def translate(self):
         '''Metodo que traduce el arbol a codigo. Llama a preorder con el arbol de AS.'''
@@ -32,11 +31,7 @@ class Interpreter(object):
         elif tree.data == '*':
             print('*',end=' ')
         elif tree.data in ['OPR','OPS','OPREL','OP2','OP3','OPLOG','OPNOT']:
-            if tree.children[0].data.atrib == '//':
-                print("**(1.0/",end=' ')
-                self.op = True
-            else:
-                print(tree.children[0].data.atrib,end=' ')
+            print(tree.children[0].data.atrib,end=' ')
         elif tree.data == 'lectura':
             print(tree.children[4].children[0].data.atrib,end=' =')
         elif tree.data == 'READ':
@@ -50,9 +45,6 @@ class Interpreter(object):
             print(tree.children[0].data.atrib,end=' ')
         elif tree.data == 'CONST':
             print(tree.children[0].data.atrib,end=' ')
-            if self.op:
-                print(')',end='')
-                self.op = False
         elif tree.data == 'IF':
             print('if',end=' ')
         elif tree.data == 'THEN':

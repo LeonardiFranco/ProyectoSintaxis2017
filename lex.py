@@ -62,7 +62,6 @@ class Lexer(object):
         'LE' : id(tag='OPREL', lexeme='<='),
         'GE' : id(tag='OPREL', lexeme='>='),
         'POT' : id(tag='OP3', lexeme='**'),
-        'RAIZ' : id(tag='OP3', lexeme='//'),
         'IF' : id(tag='IF', lexeme='si'),
         'THEN' : id(tag='THEN', lexeme='entonces'),
         'ELSE' : id(tag='ELSE', lexeme='sino'),
@@ -74,6 +73,11 @@ class Lexer(object):
         'LPAREN' : id(tag='(', lexeme='('),
         'RPAREN' : id(tag=')', lexeme=')'),
     }
+
+    def error(self,s='Error lexico'):
+        '''Eleva un error lexico.'''
+        raise Exception(self.line,s)
+
 
     def scan(self):
         '''Metodo principal del Analizador Lexico, cada vez que se lo llama devuelve un componente lexico.'''
@@ -94,8 +98,6 @@ class Lexer(object):
             return self.env['GE'] if self.readch('=') else token(tag='OPREL',atrib='>')
         elif self.peek == '*':
             return self.env['POT'] if self.readch('*') else token(tag='OP2', atrib='*')
-        elif self.peek == '/':
-            return self.env['RAIZ'] if self.readch('/') else token(tag='OP2', atrib='/')
 
         #Reconoce un numero
         if self.peek.isdigit():
@@ -136,25 +138,29 @@ class Lexer(object):
             self.readch()
             return id('CADENA',buff)
 
-        #Reconoce el signo + y -
+        #Reconoce caracteres individuales
         if self.peek == '+':
             self.readch()
             return token(tag='OPS',atrib='+')
         if self.peek == '-':
             self.readch()
             return token(tag='OPR',atrib='-')
+        if self.peek == '/':
+            self.readch()
+            return token(tag='OP2',atrib='/')
+        if self.peek in ['{','(',')','}',',']:
+            car = self.peek
+            self.readch()
+            return token(tag=car,atrib=car)
 
-        #Reconoce otros caracteres
-        tok = token(tag=self.peek,atrib=self.peek)
-        self.peek = ' '
-        return tok
+        return self.error() if not self.end else True
 
 
-# if __name__ == '__main__':
-#     l=[]
-#     lex = Lexer(open("example.pstlv").read())
-#     while not lex.end:
-#         tok = lex.scan()
-#         l.append(tok.tag)
-#     print(l)
-#     print(lex.line)
+if __name__ == '__main__':
+    l=[]
+    lex = Lexer(open("example.pstlv").read())
+    while not lex.end:
+        tok = lex.scan()
+        l.append(tok.tag)
+    print(l)
+    print(lex.line)
