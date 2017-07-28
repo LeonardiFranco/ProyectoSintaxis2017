@@ -9,17 +9,9 @@ except(IndexError):
 with open(source) as f:
     string = f.read()
 lexer = lex.Lexer(string)
-(AST,struc)=parser_proj.Parser(lexer).parse()
+AST=parser_proj.Parser(lexer).parse()
 
 inte = interpreter.Interpreter(AST)
 
-inte.translate()
-def preorden(ast):
-    print(ast)
-    for child in ast.children:
-        preorden(child)
-
-with open("inter.py", "r") as f:
-    prog = f.read()
-    exec(prog)
+inte.inter()
 # preorden(AST)

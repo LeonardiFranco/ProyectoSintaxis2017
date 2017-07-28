@@ -57,11 +57,12 @@ class Lexer(object):
         'AND' : id(tag='OPLOG',lexeme='and'),
         'OR' : id(tag='OPLOG', lexeme='or'),
         'NOT' : id(tag='OPNOT', lexeme='not'),
-        'NE' : id(tag='OPREL', lexeme='<>'),
+        'NE' : id(tag='OPREL', lexeme='!='),
         'EQ' : id(tag='OPREL', lexeme='=='),
         'LE' : id(tag='OPREL', lexeme='<='),
         'GE' : id(tag='OPREL', lexeme='>='),
         'POT' : id(tag='OP3', lexeme='**'),
+        'RAIZ' : id(tag='OP3', lexeme='//'),
         'IF' : id(tag='IF', lexeme='si'),
         'THEN' : id(tag='THEN', lexeme='entonces'),
         'ELSE' : id(tag='ELSE', lexeme='sino'),
@@ -98,6 +99,8 @@ class Lexer(object):
             return self.env['GE'] if self.readch('=') else token(tag='OPREL',atrib='>')
         elif self.peek == '*':
             return self.env['POT'] if self.readch('*') else token(tag='OP2', atrib='*')
+        elif self.peek == '/':
+            return self.env['RAIZ'] if self.readch('/') else token(tag='OP2', atrib='/')
 
         #Reconoce un numero
         if self.peek.isdigit():
@@ -145,9 +148,6 @@ class Lexer(object):
         if self.peek == '-':
             self.readch()
             return token(tag='OPR',atrib='-')
-        if self.peek == '/':
-            self.readch()
-            return token(tag='OP2',atrib='/')
         if self.peek in ['{','(',')','}',',']:
             car = self.peek
             self.readch()

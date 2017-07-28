@@ -69,14 +69,7 @@ TAS = {
         'OPNOT':['OPNOT','(','condicion',')']
     },
     'scond':{
-        'OPREL':['OPREL','exparit','fcond']
-    },
-    'fcond':{
-        'THEN':[],
-        'DO':[],
-        'OPLOG':[],
-        ')':[],
-        'OPREL':['scond']
+        'OPREL':['OPREL','exparit']
     },
     'bloque':{
         '{':['{','seq','}']

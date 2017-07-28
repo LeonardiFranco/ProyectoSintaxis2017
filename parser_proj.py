@@ -10,12 +10,10 @@ class Parser(object):
         '''Metodo constructor del AS'''
         self.lexer = lexer
         self.stack = ['$','programa']
-        self.look = None
-        self.top = self.stack[-1]
+        self.top = 'programa'
         self.move()
         self.root = ATree(self.top,None)
         self.current_node = self.root
-        self.struc = []
 
     def move(self):
         '''Le pide al analizador lexico el siguiente componente lexico.'''
@@ -28,7 +26,6 @@ class Parser(object):
     def parse(self):
         '''Metodo principal del Analizador Sintactico, construye el arbol de analisis sintactico y lo devuelve.'''
         while self.top != '$':
-            #print(self.stack,self.current_node,self.top, sep= ' // ')
             if self.current_node.children:
                 for child in self.current_node.children:
                     if child.data == self.top:
@@ -50,13 +47,12 @@ class Parser(object):
                     self.error()
             elif self.top == self.look.tag:
                 self.current_node.add_child(ATree(self.look,self.current_node))
-                self.struc.append(self.look)
                 self.stack.pop()
                 self.move()
             else:
                 self.error()
             self.top = self.stack[-1]
-        return (self.root,self.struc)
+        return self.root
 
 # import lex
-# print(Parser(lex.Lexer(open("example.pstlv").read())).parse()[1])
+# print(Parser(lex.Lexer(open("example.pstlv").read())).parse())
