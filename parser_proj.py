@@ -9,10 +9,11 @@ class Parser(object):
     def __init__(self,lexer):
         '''Metodo constructor del AS'''
         self.lexer = lexer
-        self.stack = ['$','programa']
-        self.top = 'programa'
+        self.root = ATree('programa',None)
+        self.stack = ['$']
+        self.stack.append(self.root)
+        self.top = self.stack[-1]
         self.move()
-        self.root = ATree(self.top,None)
         self.current_node = self.root
 
     def move(self):
@@ -26,33 +27,24 @@ class Parser(object):
     def parse(self):
         '''Metodo principal del Analizador Sintactico, construye el arbol de analisis sintactico y lo devuelve.'''
         while self.top != '$':
-            if self.current_node.children:
-                for child in self.current_node.children:
-                    if child.data == self.top:
-                        self.current_node = child
-            while self.current_node.data != self.top:
-                if self.current_node.parent != None:
-                    self.current_node = self.current_node.parent
-                    for child in self.current_node.children:
-                        if child.data == self.top:
-                            self.current_node = child
-            if TAS.get(self.top) != None:
-                prod = TAS[self.top].get(self.look.tag)
+            if TAS.get(self.top.data) != None:
+                prod = TAS[self.top.data].get(self.look.tag)
                 if prod != None:
-                    for simb in prod:
-                        self.current_node.add_child(ATree(simb,self.current_node))
                     self.stack.pop()
-                    self.stack += list(reversed(prod))
+                    simb = [ATree(p,self.top) for p in prod]
+                    self.stack += list(reversed(simb))
+                    self.top.children += simb
                 else:
                     self.error()
-            elif self.top == self.look.tag:
-                self.current_node.add_child(ATree(self.look,self.current_node))
+            elif self.top.data == self.look.tag:
+                self.top.add_child(ATree(self.look,self.top))
                 self.stack.pop()
                 self.move()
             else:
                 self.error()
             self.top = self.stack[-1]
-        return self.root
+        return (self.root)
 
-# import lex
-# print(Parser(lex.Lexer(open("example.pstlv").read())).parse())
+if __name__ == '__main__':
+    import lex
+    print(Parser(lex.Lexer(open("suma.pstlv").read())).parse())

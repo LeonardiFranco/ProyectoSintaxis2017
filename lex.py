@@ -104,7 +104,7 @@ class Lexer(object):
 
         #Reconoce un numero
         if self.peek.isdigit():
-            value = 0
+            value = 0.0
             while self.peek.isdigit():
                 value = 10*value + int(self.peek)
                 self.readch()

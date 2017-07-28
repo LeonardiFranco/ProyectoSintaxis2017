@@ -5,7 +5,7 @@ import lex,parser_proj,interpreter,sys
 try:
     source = sys.argv[1]
 except(IndexError):
-    source = "example.pstlv"
+    source = "suma.pstlv"
 with open(source) as f:
     string = f.read()
 lexer = lex.Lexer(string)

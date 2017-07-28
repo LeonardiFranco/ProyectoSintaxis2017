@@ -6,7 +6,7 @@ Gramática BNF
 
 | <Programa> ::= <Seq> “fin” | “fin”
 | <Seq> ::= <Sentencia> <Seq> | <Sentencia>
-| <Sentencia> ::= <Asignación> | <Lectura> | <Escritura> |<Condicional>| <Ciclo>
+| <Sentencia> ::= <Asignación> | <Lectura> | <Escritura> | <Condicional> | <Ciclo>
 | <Asignación> ::= “identificador” “=” <ExpArit>
 | <Lectura> ::= “LEER” “(“ “cadena” “,” ”identificador” “)”
 | <Escritura> :== “ESCRIBIR” “(“ “cadena” “,” ExpArit “)”
@@ -16,8 +16,7 @@ Gramática BNF
 | <Bool> :== <Condición> <SBool> | <Condición>
 | <SBool> :==  <opLog> <Condición> <SBool> | <opLog> <Condición>
 | <Condición> :==  <ExpArit> <SCond>  | “not” “(“  <Condición> “)”
-| <SCond> :== “OPREL” <ExpArit> <fCond>
-| <fCond> :== <SCond> | “ε”
+| <SCond> :== “OPREL” <ExpArit>
 | <Bloque> :== “{” <Seq> “}”|“{”“}”
 | <ExpArit> :== <Term> <SExpArit> | <Term>
 | <SExpArit> :== “OPS” <Term> <SExpArit> | “OPS” <Term> | “OPR” <Term> <SExpArit> | “OPR” <Term>
@@ -45,8 +44,7 @@ Gramática
 | **Bool** → **Condición** **SBool**
 | **SBool** →  OPLOG **Condición** **SBool** | ε
 | **Condición** →  **ExpArit** **SCond**  | not ( **Condición** )
-| **SCond** → OPREL **ExpArit** **fCond**
-| **fCond** → **SCond** | ε
+| **SCond** → OPREL **ExpArit**
 | **Bloque** → { **Seq** }
 | **ExpArit** → **Term** **SExpArit**
 | **SExpArit** → OPS **Term** **SExpArit** | OPR **Term** **SExpArit** | ε

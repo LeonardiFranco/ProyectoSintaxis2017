@@ -1,4 +1,7 @@
-si i == 2 entonces
-{}
-escribir("2 ",n)
+leer("Ingrese x1: ",x1)
+leer("Ingrese y1: ",y1)
+leer("Ingrese x2: ",x2)
+leer("Ingrese y2: ",y2)
+dist = ((x2-x1)**2 + (y2-y1)**2)//2
+escribir("La distancia euclideana entre los puntos es: ",dist)
 fin

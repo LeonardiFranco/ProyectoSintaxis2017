@@ -6,7 +6,7 @@ Gramática BNF
 
 | <Programa> ::= <Seq> “fin” | “fin”
 | <Seq> ::= <Sentencia> <Seq> | <Sentencia>
-| <Sentencia> ::= <Asignación> | <Lectura> | <Escritura> |<Condicional>| <Ciclo>
+| <Sentencia> ::= <Asignación> | <Lectura> | <Escritura> | <Condicional> | <Ciclo>
 | <Asignación> ::= “identificador” “=” <ExpArit>
 | <Lectura> ::= “LEER” “(“ “cadena” “,” ”identificador” “)”
 | <Escritura> :== “ESCRIBIR” “(“ “cadena” “,” ExpArit “)”

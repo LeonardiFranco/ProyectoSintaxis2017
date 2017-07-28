@@ -1,11 +1,10 @@
-n = 0
-i = 0
-sum= 0
-leer("Ingrese el numero: ",n)
+i=0
+suma=0
+leer("Ingrese un numero: ",n)
 mientras i<n hacer
 {
     i=i+1
-    sum=sum+i
+    suma=suma+i
 }
-escribir("La suma de los numeros hasta el ingresado es: ",sum)
+escribir("La suma de los numeros hasta el ingresado es: ",suma)
 fin

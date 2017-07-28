@@ -174,7 +174,7 @@
 <div class="line-block">
 <div class="line">&lt;Programa&gt; ::= &lt;Seq&gt; “fin” | “fin”</div>
 <div class="line">&lt;Seq&gt; ::= &lt;Sentencia&gt; &lt;Seq&gt; | &lt;Sentencia&gt;</div>
-<div class="line">&lt;Sentencia&gt; ::= &lt;Asignación&gt; | &lt;Lectura&gt; | &lt;Escritura&gt; <a href="#id2"><span class="problematic" id="id3">|&lt;Condicional&gt;|</span></a> &lt;Ciclo&gt;</div>
+<div class="line">&lt;Sentencia&gt; ::= &lt;Asignación&gt; | &lt;Lectura&gt; | &lt;Escritura&gt; | &lt;Condicional&gt; | &lt;Ciclo&gt;</div>
 <div class="line">&lt;Asignación&gt; ::= “identificador” “=” &lt;ExpArit&gt;</div>
 <div class="line">&lt;Lectura&gt; ::= “LEER” “(“ “cadena” “,” ”identificador” “)”</div>
 <div class="line">&lt;Escritura&gt; :== “ESCRIBIR” “(“ “cadena” “,” ExpArit “)”</div>
@@ -184,8 +184,7 @@
 <div class="line">&lt;Bool&gt; :== &lt;Condición&gt; &lt;SBool&gt; | &lt;Condición&gt;</div>
 <div class="line">&lt;SBool&gt; :==  &lt;opLog&gt; &lt;Condición&gt; &lt;SBool&gt; | &lt;opLog&gt; &lt;Condición&gt;</div>
 <div class="line">&lt;Condición&gt; :==  &lt;ExpArit&gt; &lt;SCond&gt;  | “not” “(“  &lt;Condición&gt; “)”</div>
-<div class="line">&lt;SCond&gt; :== “OPREL” &lt;ExpArit&gt; &lt;fCond&gt;</div>
-<div class="line">&lt;fCond&gt; :== &lt;SCond&gt; | “ε”</div>
+<div class="line">&lt;SCond&gt; :== “OPREL” &lt;ExpArit&gt;</div>
 <div class="line">&lt;Bloque&gt; :== “{” &lt;Seq&gt; “}”|“{”“}”</div>
 <div class="line">&lt;ExpArit&gt; :== &lt;Term&gt; &lt;SExpArit&gt; | &lt;Term&gt;</div>
 <div class="line">&lt;SExpArit&gt; :== “OPS” &lt;Term&gt; &lt;SExpArit&gt; | “OPS” &lt;Term&gt; | “OPR” &lt;Term&gt; &lt;SExpArit&gt; | “OPR” &lt;Term&gt;</div>
@@ -212,8 +211,7 @@
 <div class="line"><strong>Bool</strong> → <strong>Condición</strong> <strong>SBool</strong></div>
 <div class="line"><strong>SBool</strong> →  OPLOG <strong>Condición</strong> <strong>SBool</strong> | ε</div>
 <div class="line"><strong>Condición</strong> →  <strong>ExpArit</strong> <strong>SCond</strong>  | not ( <strong>Condición</strong> )</div>
-<div class="line"><strong>SCond</strong> → OPREL <strong>ExpArit</strong> <strong>fCond</strong></div>
-<div class="line"><strong>fCond</strong> → <strong>SCond</strong> | ε</div>
+<div class="line"><strong>SCond</strong> → OPREL <strong>ExpArit</strong></div>
 <div class="line"><strong>Bloque</strong> → { <strong>Seq</strong> }</div>
 <div class="line"><strong>ExpArit</strong> → <strong>Term</strong> <strong>SExpArit</strong></div>
 <div class="line"><strong>SExpArit</strong> → OPS <strong>Term</strong> <strong>SExpArit</strong> | OPR <strong>Term</strong> <strong>SExpArit</strong> | ε</div>

@@ -161,5 +161,5 @@ class Interpreter(object):
         elif tree.children[0].data == 'CONST':
             return tree.children[0].children[0].data.atrib
         else:
-            return self.exparit(tree.children[2])
+            return self.exparit(tree.children[1])
 

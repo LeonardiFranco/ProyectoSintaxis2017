@@ -295,18 +295,12 @@ Los cambios en la gramatica se pueden hacer facilmente y lo unico que hariamos e
 <p>Traductor, toma un arbol de analisis sintactico y lo traduce a codigo de Python 3</p>
 <dl class="class">
 <dt id="interpreter.Interpreter">
-<em class="property">class </em><code class="descclassname">interpreter.</code><code class="descname">Interpreter</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">interpreter.</code><code class="descname">Interpreter</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clase principal del traductor.</p>
 <dl class="method">
-<dt id="interpreter.Interpreter.preorder">
-<code class="descname">preorder</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter.preorder" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Este metodo toma el arbol y lo recorre generando codigo.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="interpreter.Interpreter.translate">
-<code class="descname">translate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter.translate" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Metodo que traduce el arbol a codigo. Llama a preorder con el arbol de AS.</p>
+<dt id="interpreter.Interpreter.inter">
+<code class="descname">inter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter.inter" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inicia el interprete con el arbol de analisis sintactico provisto.</p>
 </dd></dl>
 
 </dd></dl>
