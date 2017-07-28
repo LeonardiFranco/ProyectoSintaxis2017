@@ -17,6 +17,7 @@ Integrantes
    :caption: Tabla de contenidos:
 
    intro
+   uso
    comp-lex
    gram-tas
    compiler

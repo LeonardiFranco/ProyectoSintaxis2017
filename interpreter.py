@@ -1,4 +1,4 @@
-'''Traductor, toma un arbol de analisis sintactico y lo traduce a codigo de Python 3'''
+'''Interprete, toma un arbol de análisis sintáctico como entrada y ejecuta las instrucciones correspondientes.'''
 
 class Interpreter(object):
     '''Clase principal del traductor.'''

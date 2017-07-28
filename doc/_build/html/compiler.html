@@ -92,6 +92,7 @@
               <p class="caption"><span class="caption-text">Tabla de contenidos:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">¿Cómo se usa?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comp-lex.html">Definicion de Componentes Léxicos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gram-tas.html">Definición Sintáctica</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Interprete</a><ul>
@@ -117,10 +118,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#programa-principal">Programa Principal</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#main-py">main.py</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#funciones-auxiliares">Funciones Auxiliares</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-funcs">funcs.py</a></li>
 </ul>
 </li>
 </ul>
@@ -292,7 +289,7 @@ Los cambios en la gramatica se pueden hacer facilmente y lo unico que hariamos e
 <h2>Interprete<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="section" id="module-interpreter">
 <span id="interpreter-py"></span><h3>interpreter.py<a class="headerlink" href="#module-interpreter" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>Traductor, toma un arbol de analisis sintactico y lo traduce a codigo de Python 3</p>
+<p>Interprete, toma un arbol de análisis sintáctico como entrada y ejecuta las instrucciones correspondientes.</p>
 <dl class="class">
 <dt id="interpreter.Interpreter">
 <em class="property">class </em><code class="descclassname">interpreter.</code><code class="descname">Interpreter</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -312,19 +309,6 @@ Los cambios en la gramatica se pueden hacer facilmente y lo unico que hariamos e
 <div class="section" id="main-py">
 <h3>main.py<a class="headerlink" href="#main-py" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Front end del interprete, recibe el codigo fuente de un programa como entrada y lo ejecuta</p>
-</div>
-</div>
-<div class="section" id="funciones-auxiliares">
-<h2>Funciones Auxiliares<a class="headerlink" href="#funciones-auxiliares" title="Enlazar permanentemente con este título">¶</a></h2>
-<div class="section" id="module-funcs">
-<span id="funcs-py"></span><h3>funcs.py<a class="headerlink" href="#module-funcs" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>Funciones auxiliares a la traduccion del arbol.</p>
-<dl class="function">
-<dt id="funcs.read">
-<code class="descclassname">funcs.</code><code class="descname">read</code><span class="sig-paren">(</span><em>string</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#funcs.read" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion intermedia para leer una variable.</p>
-</dd></dl>
-
 </div>
 </div>
 </div>

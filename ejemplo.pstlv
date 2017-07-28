@@ -1,0 +1,14 @@
+leer("Ingresar un numero: ", Elem)
+I = 0
+mientras Elem>0 and Elem<=30 hacer
+{
+    leer("",Elem)
+    si I==0 entonces
+       {Primero=Elem}
+    I=I+1
+}
+si Elem==0 entonces
+    {escribir("La cantidad de números ingresados fue: ", I)}
+sino
+    {escribir("El primero ingresado fue: ", Primero)}
+fin

@@ -58,11 +58,3 @@ Front end del interprete, recibe el codigo fuente de un programa como entrada y 
 
 .. automodule:: main.py
     :members:
-
-Funciones Auxiliares
---------------------
-funcs.py
-++++++++
-
-.. automodule:: funcs
-    :members:
