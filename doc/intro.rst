@@ -2,7 +2,7 @@ Introducción
 ============
 
 En este documento, procedemos a explicar el funcionamiento de un Intérprete
-para un lenguaje que permite realizar cualquier tipo de programa que implique la utilización de caracteres numéricos de forma exclusiva.
+para el lenguaje NumberMaster que permite realizar cualquier tipo de programa que implique la utilización de caracteres numéricos de forma exclusiva.
 
 El intérprete armado permite realizar cálculos numéricos que impliquen sumar, multiplicar y realizar la potencia sobre una expresión aritmética
 (incluyendo las operaciones opuestas a éstas) o cualquier tipo de programa que implique la utilización de únicamente caracteres numéricos.
