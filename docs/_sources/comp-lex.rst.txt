@@ -6,7 +6,7 @@ Las siguientes lineas definen las expresiones regulares de los componentes lexic
 num = [0-9], let = [a-Z]
 
 Cadena:
- "(|let|num)*"
+ \" ( |let|num)*"
 
 Constante numerica:
  num num* ( | . num num*)
