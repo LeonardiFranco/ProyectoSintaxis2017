@@ -6,4 +6,4 @@ Proyecto Final para la catedra de Sintaxis y Semantica de los Lenguajes del año
 
 Interprete del lenguaje NumberMaster.
 
-Documentación en: [https://leonardifranco.github.io/ProyectoSintaxis2017/]
+Documentación en: https://leonardifranco.github.io/ProyectoSintaxis2017/
