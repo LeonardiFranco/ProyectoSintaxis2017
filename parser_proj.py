@@ -14,7 +14,6 @@ class Parser(object):
         self.stack.append(self.root)
         self.top = self.stack[-1]
         self.move()
-        self.current_node = self.root
 
     def move(self):
         '''Le pide al analizador lexico el siguiente componente lexico.'''

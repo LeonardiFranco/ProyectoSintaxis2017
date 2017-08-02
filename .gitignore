@@ -1,3 +1,6 @@
 desktop.ini
 /sphinx
 /sphinx/*
+__pycache__/*
+/__pycache__
+/__pycache__/*

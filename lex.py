@@ -54,15 +54,17 @@ class Lexer(object):
 
     #Environment constants
     env = {
+        'OPR' : token(tag='OPR', atrib='-'),
+        'OPS' : token(tag='OPS', atrib='+'),
         'AND' : id(tag='OPLOG',lexeme='and'),
         'OR' : id(tag='OPLOG', lexeme='or'),
         'NOT' : id(tag='OPNOT', lexeme='not'),
-        'NE' : id(tag='OPREL', lexeme='!='),
-        'EQ' : id(tag='OPREL', lexeme='=='),
-        'LE' : id(tag='OPREL', lexeme='<='),
-        'GE' : id(tag='OPREL', lexeme='>='),
-        'POT' : id(tag='OP3', lexeme='**'),
-        'RAIZ' : id(tag='OP3', lexeme='//'),
+        'NE' : token(tag='OPREL', atrib='!='),
+        'EQ' : token(tag='OPREL', atrib='=='),
+        'LE' : token(tag='OPREL', atrib='<='),
+        'GE' : token(tag='OPREL', atrib='>='),
+        'POT' : token(tag='OP3', atrib='**'),
+        'RAIZ' : token(tag='OP3', atrib='//'),
         'IF' : id(tag='IF', lexeme='si'),
         'THEN' : id(tag='THEN', lexeme='entonces'),
         'ELSE' : id(tag='ELSE', lexeme='sino'),
@@ -71,8 +73,16 @@ class Lexer(object):
         'END' : id(tag='END', lexeme='fin'),
         'READ' : id(tag='READ', lexeme='leer'),
         'WRITE' : id(tag='WRITE', lexeme='escribir'),
-        'LPAREN' : id(tag='(', lexeme='('),
-        'RPAREN' : id(tag=')', lexeme=')'),
+        '(' : token(tag='(', atrib='('),
+        ')' : token(tag=')', atrib=')'),
+        '{' : token(tag='{', atrib='{'),
+        '}' : token(tag='}', atrib='}'),
+        ',' : token(tag=',', atrib=','),
+        'LT' : token(tag='OPREL', atrib='<'),
+        'ASIG' : token(tag='=', atrib='='),
+        'GT' : token(tag='OPREL', atrib='>'),
+        'MUL' : token(tag='OP2', atrib='*'),
+        'DIV' : token(tag='OP2', atrib='/'),
     }
 
     def error(self,s='Error lexico'):
@@ -90,17 +100,17 @@ class Lexer(object):
 
         #Reconoce operadores
         if self.peek == '=':
-            return self.env['EQ'] if self.readch('=') else token(tag='=',atrib='=')
+            return self.env['EQ'] if self.readch('=') else self.env['ASIG']
         elif self.peek == '!':
             return self.env['NE'] if self.readch('=') else token(tag='!',atrib='!')
         elif self.peek == '<':
-            return self.env['LE'] if self.readch('=') else token(tag='OPREL',atrib='<')
+            return self.env['LE'] if self.readch('=') else self.env['LT']
         elif self.peek == '>':
-            return self.env['GE'] if self.readch('=') else token(tag='OPREL',atrib='>')
+            return self.env['GE'] if self.readch('=') else self.env['GT']
         elif self.peek == '*':
-            return self.env['POT'] if self.readch('*') else token(tag='OP2', atrib='*')
+            return self.env['POT'] if self.readch('*') else self.env['MUL']
         elif self.peek == '/':
-            return self.env['RAIZ'] if self.readch('/') else token(tag='OP2', atrib='/')
+            return self.env['RAIZ'] if self.readch('/') else self.env['DIV']
 
         #Reconoce un numero
         if self.peek.isdigit():
@@ -144,14 +154,14 @@ class Lexer(object):
         #Reconoce caracteres individuales
         if self.peek == '+':
             self.readch()
-            return token(tag='OPS',atrib='+')
+            return self.env['OPS']
         if self.peek == '-':
             self.readch()
-            return token(tag='OPR',atrib='-')
-        if self.peek in ['{','(',')','}',',']:
+            return self.env['OPR']
+        if self.peek in ['{','(','}',')',',']:
             car = self.peek
             self.readch()
-            return token(tag=car,atrib=car)
+            return self.env[car]
 
         return self.error() if not self.end else True
 
