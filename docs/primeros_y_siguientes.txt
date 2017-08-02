@@ -1,0 +1,57 @@
+Primero(Programa) = {identificador, leer, escribir, si, mientras, e}
+Primero(Seq) = {identificador, leer, escribir, si, mientras, e}
+Primero(Sentencia) = {identificador, leer, escribir, si, mientras}
+Primero(Asignacion) = {identificador}
+Primero(Lectura) = {leer}
+Primero(Escritura) = {escribir}
+Primero(Condicional) = {si}
+Primero(Else) = {sino, e}
+Primero(Ciclo) = {mientras}
+Primero(Bool) = {OPR, id, const, (, not }
+Primero(SBool) = {OPLOG, e}
+Primero(Condicion) = {OPR, id, const, (, not}
+Primero(SCond) = {OPREL}
+Primero(Bloque) = { { }
+Primero(ExpArit) = {OPR, id, const, (}
+Primero(SExpArit) = {OPS, OPR, e}
+Primero(Term) = {OPR, id, const, (}
+Primero(STerm) = {OP2, e}
+Primero(Neg) = {OPR, id, const, (}
+Primero(Pot) = {id, const, (}
+Primero(SPot) = {OP3, e}
+Primero(Factor) = {id, const, (}
+
+Siguiente(Programa) = {$}
+Siguiente(Seq) = {fin, } }
+Siguiente(Sentencia) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Asignacion) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Lectura) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Escritura) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Condicional) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Ciclo) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Else) = {identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Bool) = {hacer, entonces}
+Siguiente(SBool) = {hacer, entonces}
+Siguiente(Condicion) = {OPLOG, hacer, entonces, ) }
+Siguiente(SCond) = {OPLOG, hacer, entonces, ) }
+Siguiente(Bloque) = {sino, identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(ExpArit) = {OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(SExpArit) = {OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Term) = {OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(STerm) = {OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Neg) = {OP2, OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Pot) = {OP2, OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(SPot) = {OP2, OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+Siguiente(Factor) = {OP3, OPS, OPR, OPREL, OPLOG, hacer, entonces, ), identificador, leer, escribir, si, mientras, fin, } }
+
+1. Place $ in FOLLOW(S), where S is the start symbol, and $ is the input
+right endmarker.
+2. If there is a production A --> aBb, then everything in FIRST(b) except e
+is in FOLLOW(B).
+3. If there is a production A --> aB, or a production A --> aBb, where
+FIRST(b) contains e, then everything in FOLLOW(A) is in FOLLOW(B).
+
+1. For each terminal a in FIRST(alpha), add A --> alpha to M[A; a].
+2. If e is in FIRST(alpha), then for each terminal b in FOLLOW(A), add A --> alpha
+to M[A; b]. If e is in FIRST(a) and $ is in FOLLOW(A), add A --> a to
+M[A; $] as well.

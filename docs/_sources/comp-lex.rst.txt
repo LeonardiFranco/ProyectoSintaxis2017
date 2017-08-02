@@ -1,0 +1,15 @@
+Definicion de Componentes Léxicos
+=================================
+
+Las siguientes lineas definen las expresiones regulares de los componentes lexicos complejos:
+
+num = [0-9], let = [a-Z]
+
+Cadena:
+ "(|let|num)*"
+
+Constante numerica:
+ num num* ( | . num num*)
+
+Identificador:
+ (_|let)(_ | let | num)*
