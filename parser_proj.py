@@ -46,4 +46,4 @@ class Parser(object):
 
 if __name__ == '__main__':
     import lex
-    print(Parser(lex.Lexer(open("suma.pstlv").read())).parse())
+    print(Parser(lex.Lexer(open("example.pstlv").read())).parse())

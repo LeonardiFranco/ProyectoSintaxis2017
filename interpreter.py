@@ -78,9 +78,12 @@ class Interpreter(object):
             return resultado
 
     def condicion(self, tree):
-        _1exp = self.exparit(tree.children[0])
-        resultado = self.scond(tree.children[1], _1exp)
-        return resultado
+        if tree.children[0].data == 'OPNOT':
+            return not self.condicion(tree.children[2])
+        else:
+            _1exp = self.exparit(tree.children[0])
+            resultado = self.scond(tree.children[1], _1exp)
+            return resultado
 
     def scond(self, tree, _1exp):
         _2exp = self.exparit(tree.children[1])

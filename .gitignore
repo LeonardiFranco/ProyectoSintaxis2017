@@ -1,4 +1,4 @@
-desktop.ini
+**/desktop.ini
 /sphinx
 /sphinx/*
 __pycache__/*

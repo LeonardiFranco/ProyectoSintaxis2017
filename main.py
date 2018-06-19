@@ -8,10 +8,10 @@ except(IndexError):
     source = "suma.pstlv"
 with open(source) as f:
     string = f.read()
+    
 lexer = lex.Lexer(string)
 AST=parser_proj.Parser(lexer).parse()
 
 inte = interpreter.Interpreter(AST)
 
 inte.inter()
-# preorden(AST)
