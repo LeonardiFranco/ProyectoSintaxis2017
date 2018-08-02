@@ -9,5 +9,14 @@ class ATree(object):
     def add_child(self,child):
         self.children.append(child)
 
+    def add_children(self, *args):
+    	children = [*args]
+    	self.children.extend(children)
+
     def __repr__(self):
         return str(self.data) + str(self.children)
+
+if __name__ == "__main__":
+	tree = ATree('programa', None)
+	var = ['chulengo','sandunga']
+	print(tree.children)

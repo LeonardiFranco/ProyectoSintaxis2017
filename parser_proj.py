@@ -25,24 +25,25 @@ class Parser(object):
 
     def parse(self):
         '''Metodo principal del Analizador Sintactico, construye el arbol de analisis sintactico y lo devuelve.'''
-        while self.top != '$':
+        error = 0
+        while self.top != '$' and error == 0:
             if TAS.get(self.top.data) != None:
                 prod = TAS[self.top.data].get(self.look.tag)
                 if prod != None:
                     self.stack.pop()
                     simb = [ATree(p,self.top) for p in prod]
-                    self.stack += list(reversed(simb))
-                    self.top.children += simb
+                    self.stack.extend(list(reversed(simb)))
+                    self.top.add_children(*simb)
                 else:
-                    self.error()
+                    error = 1
             elif self.top.data == self.look.tag:
                 self.top.add_child(ATree(self.look,self.top))
                 self.stack.pop()
                 self.move()
             else:
-                self.error()
+                error = 2
             self.top = self.stack[-1]
-        return (self.root)
+        return (self.root) if error == 0 else self.error()
 
 if __name__ == '__main__':
     import lex
